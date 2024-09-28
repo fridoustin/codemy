@@ -72,10 +72,20 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         Image(
-            painter = painterResource(id = R.drawable.codemy_login),
+            painter = painterResource(id = R.drawable.codemylogo_putih),
             contentDescription = "logo",
-            modifier = Modifier.size(165.dp, 111.dp),
+            modifier = Modifier.size(100.dp, 100.dp),
             contentScale = ContentScale.Fit
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        Text(
+            text = "Code better with C/odemy>",
+            fontFamily = montserratFontFamily,
+            fontWeight = FontWeight.Normal,
+            fontSize = 12.sp,
+            color = Color.White
         )
 
         Card(

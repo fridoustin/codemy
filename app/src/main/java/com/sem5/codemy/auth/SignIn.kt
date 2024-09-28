@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -40,6 +41,8 @@ import androidx.navigation.NavController
 import com.sem5.codemy.AuthState
 import com.sem5.codemy.AuthView
 import com.sem5.codemy.R
+import com.sem5.codemy.ui.theme.montserratFontFamily
+import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @Composable
 fun SignIn(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
@@ -92,6 +95,7 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
             ){
                 Text(
                     text = "Silahkan Login !",
+                    fontFamily = montserratFontFamily,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -106,7 +110,12 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
                         email = it
                     },
                     label = {
-                        Text(text = "Email", fontSize = 12.sp)
+                        Text(
+                            text = "Email",
+                            fontSize = 12.sp,
+                            fontFamily = publicSansFontFamily,
+                            fontWeight = FontWeight.Medium
+                            )
                     }
                 )
                 Spacer(modifier = Modifier.height(14.dp))
@@ -119,7 +128,12 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
                         password = it
                     },
                     label = {
-                        Text(text = "Password", fontSize = 12.sp)
+                        Text(
+                            text = "Password",
+                            fontSize = 12.sp,
+                            fontFamily = publicSansFontFamily,
+                            fontWeight = FontWeight.Medium
+                        )
                     },
                     visualTransformation = PasswordVisualTransformation()
                 )
@@ -136,19 +150,24 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
                     enabled = authState.value != AuthState.Loading
                     ) {
                     Text(
-                        text = "Login",
+                        text = "Log In",
                         fontSize = 12.sp,
+                        fontFamily = publicSansFontFamily,
+                        fontWeight = FontWeight.Medium,
                         color = Color(0xFFF0F3FA)
                     )
                 }
-
-                Spacer(modifier = Modifier.height(14.dp))
 
                 TextButton(
                     onClick = {navController.navigate("signup")},
                     modifier = Modifier.padding(0.dp)
                 ) {
-                    Text(text = "Belum punya akun?    Buat akun baru")
+                    Text(
+                        text = "Belum punya akun?    Buat akun baru",
+                        fontFamily = publicSansFontFamily,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp
+                        )
                 }
             }
 

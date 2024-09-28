@@ -40,6 +40,8 @@ import androidx.navigation.NavController
 import com.sem5.codemy.AuthState
 import com.sem5.codemy.AuthView
 import com.sem5.codemy.R
+import com.sem5.codemy.ui.theme.montserratFontFamily
+import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @Composable
 fun SignUp(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
@@ -92,6 +94,7 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                 Text(
                     text = "Selamat Datang !",
                     fontSize = 20.sp,
+                    fontFamily = montserratFontFamily,
                     fontWeight = FontWeight.Bold
                 )
 
@@ -105,7 +108,12 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                         email = it
                     },
                     label = {
-                        Text(text = "Email", fontSize = 12.sp)
+                        Text(
+                            text = "Email",
+                            fontSize = 12.sp,
+                            fontFamily = publicSansFontFamily,
+                            fontWeight = FontWeight.Medium
+                        )
                     }
                 )
                 Spacer(modifier = Modifier.height(14.dp))
@@ -118,7 +126,12 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                         password = it
                     },
                     label = {
-                        Text(text = "Password", fontSize = 12.sp)
+                        Text(
+                            text = "Password",
+                            fontSize = 12.sp,
+                            fontFamily = publicSansFontFamily,
+                            fontWeight = FontWeight.Medium,
+                            )
                     },
                     visualTransformation = PasswordVisualTransformation()
                 )
@@ -136,6 +149,8 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                     ) {
                     Text(
                         text = "Create Account",
+                        fontFamily = publicSansFontFamily,
+                        fontWeight = FontWeight.Medium,
                         fontSize = 12.sp,
                         color = Color(0xFFF0F3FA)
                     )

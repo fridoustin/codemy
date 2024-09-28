@@ -2,9 +2,21 @@ package com.sem5.codemy.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.sem5.codemy.R
+
+val publicSansFontFamily = FontFamily(
+    Font(R.font.publicsans_regular, FontWeight.Normal),
+    Font(R.font.publicsans_medium, FontWeight.Medium),
+    Font(R.font.publicsans_bold, FontWeight.Bold)
+)
+
+val montserratFontFamily = FontFamily(
+    Font(R.font.montserrat_bold, FontWeight.Bold)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(

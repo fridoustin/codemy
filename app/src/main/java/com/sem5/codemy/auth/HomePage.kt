@@ -48,16 +48,16 @@ import com.sem5.codemy.ui.theme.LightBlue
 fun HomePage(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
     val authState = authViewModel.authState.observeAsState()
 
-    val navBotList = listOf(
-        NavItem("Home", Icons.Default.Home, "home"),
-        NavItem("Learn", Icons.Default.School, "learnhome"),
-        NavItem("Challenge", Icons.Default.Flag, "challengehome"),
-        NavItem("Other", Icons.Default.MoreHoriz, "other")
-    )
-
-    var selectedIndex by remember {
-        mutableStateOf(0)
-    }
+//    val navBotList = listOf(
+//        NavItem("Home", Icons.Default.Home, "home"),
+//        NavItem("Learn", Icons.Default.School, "learnhome"),
+//        NavItem("Challenge", Icons.Default.Flag, "challengehome"),
+//        NavItem("Other", Icons.Default.MoreHoriz, "other")
+//    )
+//
+//    var selectedIndex by remember {
+//        mutableStateOf(0)
+//    }
 
     LaunchedEffect(authState.value) {
         when(authState.value){
@@ -65,46 +65,46 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
             else -> Unit
         }
     }
-    Scaffold(
-        modifier = Modifier
-            .fillMaxSize(),
-        bottomBar = {
-            BottomAppBar(
-                containerColor = BlueNormal,
-                modifier = Modifier
-                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
-
-            ) {
-                navBotList.forEachIndexed { index, navItem ->
-                    NavigationBarItem(
-                        selected = selectedIndex == index,
-                        onClick = {
-                            selectedIndex = index
-                            navController.navigate(navItem.route)
-                        },
-                        icon = {
-                            Icon(imageVector = navItem.icon,
-                                contentDescription = "Icon",
-                                tint = if(selectedIndex == index) DarkBlue else LightBlue
-                            )
-                        },
-                        label = {
-                            Text(
-                                text = navItem.label,
-                                color = if (selectedIndex == index) DarkBlue else LightBlue
-                                )
-                        },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = DarkBlue,
-                            unselectedIconColor = LightBlue,
-                            indicatorColor = Color.Transparent
-                        )
-                    )
-                }
-            }
-        }
-    ){ innerPadding ->
-        BottomBar(modifier = Modifier.padding(innerPadding))
+//    Scaffold(
+//        modifier = Modifier
+//            .fillMaxSize(),
+//        bottomBar = {
+//            BottomAppBar(
+//                containerColor = BlueNormal,
+//                modifier = Modifier
+//                    .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
+//
+//            ) {
+//                navBotList.forEachIndexed { index, navItem ->
+//                    NavigationBarItem(
+//                        selected = selectedIndex == index,
+//                        onClick = {
+//                            selectedIndex = index
+//                            navController.navigate(navItem.route)
+//                        },
+//                        icon = {
+//                            Icon(imageVector = navItem.icon,
+//                                contentDescription = "Icon",
+//                                tint = if(selectedIndex == index) DarkBlue else LightBlue
+//                            )
+//                        },
+//                        label = {
+//                            Text(
+//                                text = navItem.label,
+//                                color = if (selectedIndex == index) DarkBlue else LightBlue
+//                                )
+//                        },
+//                        colors = NavigationBarItemDefaults.colors(
+//                            selectedIconColor = DarkBlue,
+//                            unselectedIconColor = LightBlue,
+//                            indicatorColor = Color.Transparent
+//                        )
+//                    )
+//                }
+//            }
+//        }
+//    ){ innerPadding ->
+//        BottomBar(modifier = Modifier.padding(innerPadding))
 
         Column(
                 modifier = Modifier
@@ -126,9 +126,6 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
             Text(text = "Sign Out")
         }
     }
-    }
-
-
 }
 
 @Composable

@@ -1,9 +1,9 @@
-package com.sem5.codemy
+package com.sem5.codemy.features.presentations.auth
 
-import android.os.Message
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 
 class AuthView: ViewModel() {
@@ -38,7 +38,8 @@ class AuthView: ViewModel() {
                 if(task.isSuccessful){
                     _authState.value = AuthState.Authenticated
                 }else{
-                    _authState.value = AuthState.Error(task.exception?.message?:"Something went wrong")
+                    _authState.value =
+                        AuthState.Error(task.exception?.message ?: "Something went wrong")
                 }
             }
     }
@@ -56,12 +57,13 @@ class AuthView: ViewModel() {
                 if(task.isSuccessful){
                     _authState.value = AuthState.Authenticated
                 }else{
-                    _authState.value = AuthState.Error(task.exception?.message?:"Something went wrong")
+                    _authState.value =
+                        AuthState.Error(task.exception?.message ?: "Something went wrong")
                 }
             }
     }
 
-    fun signOut(){
+    fun signOut(navController: NavController){
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
     }

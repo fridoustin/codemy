@@ -1,4 +1,4 @@
-package com.sem5.codemy.learn
+package com.sem5.codemy.features.presentations.learn
 
 import androidx.annotation.DrawableRes
 

@@ -1,4 +1,4 @@
-package com.sem5.codemy
+package com.sem5.codemy.features
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavController
+import com.sem5.codemy.features.navigation.NavigationApp
+import com.sem5.codemy.features.presentations.auth.AuthView
 import com.sem5.codemy.ui.theme.CodemyTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,10 +1,15 @@
-package com.sem5.codemy.features.presentations.other
+package com.sem5.codemy.features.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -21,12 +26,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.features.components.BottomBar
-import com.sem5.codemy.features.presentations.auth.AuthState
-import com.sem5.codemy.features.presentations.auth.AuthView
+import com.sem5.codemy.features.components.TopBar
+import com.sem5.codemy.features.screens.auth.AuthState
+import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.ui.theme.DarkBlue
 
 
 @Composable
-fun Other(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
+fun Profile(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
     val authState = authViewModel.authState.observeAsState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -38,6 +45,25 @@ fun Other(modifier: Modifier = Modifier, navController: NavController, authViewM
     }
 
     Scaffold(
+        topBar = {
+            TopBar(
+                title = "Hello 👋 , Fridolin Austin",
+                actions = {
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier
+                            .width(50.dp)
+                            .padding(end = 16.dp)
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications",
+                            tint = DarkBlue
+                        )
+                    }
+                }
+            )
+        },
         bottomBar = {
             BottomBar(
                 currentScreen = currentRoute ?: "",

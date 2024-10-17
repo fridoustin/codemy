@@ -7,14 +7,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sem5.codemy.features.presentations.auth.AuthState
-import com.sem5.codemy.features.presentations.auth.AuthView
-import com.sem5.codemy.features.presentations.auth.SignIn
-import com.sem5.codemy.features.presentations.auth.SignUp
-import com.sem5.codemy.features.presentations.challenge.ChallengeHomePage
-import com.sem5.codemy.features.presentations.home.HomePage
-import com.sem5.codemy.features.presentations.learn.LearnHomePage
-import com.sem5.codemy.features.presentations.other.Other
+import com.sem5.codemy.features.screens.auth.AuthState
+import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.features.screens.auth.SignIn
+import com.sem5.codemy.features.screens.auth.SignUp
+import com.sem5.codemy.features.screens.challenge.ChallengeHomePage
+import com.sem5.codemy.features.screens.home.HomePage
+import com.sem5.codemy.features.screens.learn.LearnHomePage
+import com.sem5.codemy.features.screens.profile.Profile
 
 @Composable
 fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
@@ -42,8 +42,8 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
         composable("challengehome"){
             ChallengeHomePage(modifier, navController)
         }
-        composable("other"){
-            Other(modifier, navController, authViewModel)
+        composable("profile"){
+            Profile(modifier, navController, authViewModel)
         }
 //        composable("bottombar"){
 //            BottomBar(modifier, navController, authViewModel)

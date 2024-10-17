@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.presentations.auth
+package com.sem5.codemy.features.screens.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

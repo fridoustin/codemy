@@ -1,10 +1,15 @@
-package com.sem5.codemy.features.presentations.learn
+package com.sem5.codemy.features.screens.learn
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,6 +19,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.features.components.BottomBar
 import com.sem5.codemy.R
+import com.sem5.codemy.features.components.TopBar
+import com.sem5.codemy.ui.theme.DarkBlue
 
 
 @Composable
@@ -21,6 +28,25 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     Scaffold(
+        topBar = {
+            TopBar(
+                title = "Hello 👋 , Fridolin Austin",
+                actions = {
+                    IconButton(
+                        onClick = {},
+                        modifier = Modifier
+                            .width(50.dp)
+                            .padding(end = 16.dp)
+                    ){
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications",
+                            tint = DarkBlue
+                        )
+                    }
+                }
+            )
+        },
         bottomBar = {
             BottomBar(
                 currentScreen = currentRoute ?: "",

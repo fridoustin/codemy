@@ -11,7 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.sem5.codemy.features.navigation.NavigationApp
-import com.sem5.codemy.features.presentations.auth.AuthView
+import com.sem5.codemy.features.screens.auth.AuthView
 import com.sem5.codemy.ui.theme.CodemyTheme
 
 class MainActivity : ComponentActivity() {

@@ -1,8 +1,9 @@
-package com.sem5.codemy.features.components
+package com.sem5.codemy.ui.theme.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -19,6 +20,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -43,8 +45,7 @@ fun BottomBar(
         contentColor = LightBlue,
         modifier = Modifier
             .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp))
-            .height(80.dp),
-        
+            .height(80.dp)
     ){
         val items = listOf(
             BottomBarItem("Home", Icons.Default.Home, "home"),
@@ -57,7 +58,7 @@ fun BottomBar(
             NavigationBarItem(
                 icon = {
                     Column(
-                        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ){
                         Icon(
                             imageVector = item.icon,

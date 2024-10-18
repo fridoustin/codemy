@@ -19,10 +19,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sem5.codemy.features.learn.data.LessonData
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @Composable
-
 fun LessonUi(lessonData: LessonData){
     Card(modifier = Modifier
         .padding(26.dp,19.dp)

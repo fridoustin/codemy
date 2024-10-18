@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.screens.auth
+package com.sem5.codemy.features.auth.presentation.ui
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -43,11 +43,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sem5.codemy.R
+import com.sem5.codemy.features.auth.data.SignInData
+import com.sem5.codemy.features.screens.auth.AuthState
+import com.sem5.codemy.features.screens.auth.AuthView
 import com.sem5.codemy.ui.theme.montserratFontFamily
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @Composable
-fun SignUp(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
+fun SignIn(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
+
     var email by remember {
         mutableStateOf("")
     }
@@ -60,7 +64,7 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
 
     LaunchedEffect(authState.value) {
         when(authState.value){
-            is AuthState.Authenticated -> navController.navigate("mainscreen")
+            is AuthState.Authenticated -> navController.navigate("home")
             is AuthState.Error -> Toast.makeText(context,
                 (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
             else -> Unit
@@ -105,9 +109,9 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
                 Text(
-                    text = "Selamat Datang !",
-                    fontSize = 20.sp,
+                    text = "Silahkan Login !",
                     fontFamily = montserratFontFamily,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
 
@@ -126,11 +130,11 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                             fontSize = 12.sp,
                             fontFamily = publicSansFontFamily,
                             fontWeight = FontWeight.Medium
-                        )
+                            )
                     }
                 )
                 Spacer(modifier = Modifier.height(14.dp))
-
+                
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
                     value = password,
@@ -143,31 +147,33 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                             text = "Password",
                             fontSize = 12.sp,
                             fontFamily = publicSansFontFamily,
-                            fontWeight = FontWeight.Medium,
-                            )
+                            fontWeight = FontWeight.Medium
+                        )
                     },
                     visualTransformation = PasswordVisualTransformation()
                 )
-
+                
                 Spacer(modifier = Modifier.height(14.dp))
-
+                
                 Button(
                     modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(Color(0xFF628ECB)),
                     shape = RoundedCornerShape(5.dp),
                     onClick = {
-                        authViewModel.signUp(email, password)
+                        val signInData = SignInData(email, password)
+                        authViewModel.login(signInData)
                     },
                     enabled = authState.value != AuthState.Loading
                     ) {
                     Text(
-                        text = "Create Account",
+                        text = "Log In",
+                        fontSize = 12.sp,
                         fontFamily = publicSansFontFamily,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 12.sp,
                         color = Color(0xFFF0F3FA)
                     )
-                }
+                 }
+
                 Spacer(modifier = Modifier.height(14.dp))
 
                 Row(
@@ -197,12 +203,13 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                 }
 
                 Spacer(modifier = Modifier.height(14.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
                 ){
                     Text(
-                        text = "Sudah punya akun?",
+                        text = "Belum punya akun?",
                         fontFamily = publicSansFontFamily,
                         fontWeight = FontWeight.Medium,
                         fontSize = 12.sp
@@ -210,8 +217,8 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                     Spacer(modifier = Modifier.width(12.dp))
 
                     ClickableText(
-                        text = AnnotatedString("Sign In"),
-                        onClick = {navController.navigate("signin")},
+                        text = AnnotatedString("Buat akun baru"),
+                        onClick = {navController.navigate("signup")},
                         modifier = Modifier.padding(top = 4.dp),
                         style = TextStyle(
                             fontFamily = publicSansFontFamily,
@@ -222,8 +229,6 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                     )
                 }
             }
-
         }
-
     }
 }

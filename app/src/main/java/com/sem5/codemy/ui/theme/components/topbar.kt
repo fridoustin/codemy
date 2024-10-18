@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.components
+package com.sem5.codemy.ui.theme.components
 
 import android.app.Notification.Action
 import androidx.compose.foundation.background

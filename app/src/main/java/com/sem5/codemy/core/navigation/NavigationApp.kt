@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.navigation
+package com.sem5.codemy.core.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -9,8 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sem5.codemy.features.screens.auth.AuthState
 import com.sem5.codemy.features.screens.auth.AuthView
-import com.sem5.codemy.features.screens.auth.SignIn
-import com.sem5.codemy.features.screens.auth.SignUp
+import com.sem5.codemy.features.auth.presentation.ui.SignIn
+import com.sem5.codemy.features.auth.presentation.ui.SignUp
 import com.sem5.codemy.features.screens.challenge.ChallengeHomePage
 import com.sem5.codemy.features.screens.home.HomePage
 import com.sem5.codemy.features.screens.learn.LearnHomePage

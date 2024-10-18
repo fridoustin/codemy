@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.screens.home
+package com.sem5.codemy.features.screens.profile
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,19 +25,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.sem5.codemy.features.components.BottomBar
-import com.sem5.codemy.features.components.TopBar
+import com.sem5.codemy.ui.theme.components.BottomBar
+import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.screens.auth.AuthState
 import com.sem5.codemy.features.screens.auth.AuthView
 import com.sem5.codemy.ui.theme.DarkBlue
 
-@Composable
-fun HomePage(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
-    val authState = authViewModel.authState.observeAsState()
 
+@Composable
+fun Profile(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
+    val authState = authViewModel.authState.observeAsState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
     LaunchedEffect(authState.value) {
         when(authState.value){
             is AuthState.Unauthenticated -> navController.navigate("signin")
@@ -65,8 +64,6 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
                 }
             )
         },
-
-
         bottomBar = {
             BottomBar(
                 currentScreen = currentRoute ?: "",
@@ -79,6 +76,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
             )
         }
     ){innerPadding -> Modifier.padding(innerPadding)
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -87,7 +85,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "This is the temporary Home Page",
+                text = "This is the temporary Other Page",
                 fontSize = 32.sp,
                 modifier = Modifier.padding(16.dp),
                 textAlign = TextAlign.Center
@@ -98,7 +96,6 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
             }) {
                 Text(text = "Sign Out")
             }
-
         }
     }
 }

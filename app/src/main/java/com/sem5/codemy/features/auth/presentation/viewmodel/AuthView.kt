@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.screens.auth
+package com.sem5.codemy.features.auth.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.sem5.codemy.features.auth.data.SignInData
+import com.sem5.codemy.features.auth.data.SignUpData
 import kotlinx.coroutines.launch
 
 class AuthView: ViewModel() {
@@ -16,15 +17,20 @@ class AuthView: ViewModel() {
     private val _authState = MutableLiveData<AuthState>()
     val authState: LiveData<AuthState> = _authState
 
+    private val _userName = MutableLiveData<String?>()
+    val userName: LiveData<String?> = _userName
+
     init {
         checkAuthState()
     }
 
     fun checkAuthState(){
-        if(auth.currentUser==null){
+        val user = auth.currentUser
+        if(user == null){
             _authState.value = AuthState.Unauthenticated
         }else{
             _authState.value = AuthState.Authenticated
+            _userName.value = user.displayName
         }
     }
 
@@ -42,7 +48,12 @@ class AuthView: ViewModel() {
                 auth.signInWithEmailAndPassword(data.email, data.password)
                     .addOnCompleteListener{task->
                         if(task.isSuccessful){
+                            val user = auth.currentUser
                             _authState.value = AuthState.Authenticated
+
+                            user?.let{
+                                _userName.value = it.displayName
+                            }
                         }else{
                             _authState.value =
                                 AuthState.Error(task.exception?.message ?: "Something went wrong")
@@ -54,19 +65,34 @@ class AuthView: ViewModel() {
         }
     }
 
-    fun signUp(email : String, password : String){
-
-        if(email.isEmpty() || password.isEmpty()){
-            _authState.value = AuthState.Error("Email or Password can't be empty")
+    fun signUp(data: SignUpData){
+        if(data.email.isEmpty() || data.password.isEmpty()){
+            _authState.value = AuthState.Error("Name, Email or Password can't be empty")
             return
         }
-
         _authState.value = AuthState.Loading
-        auth.createUserWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(data.email, data.password)
             .addOnCompleteListener{task->
                 if(task.isSuccessful){
-                    _authState.value = AuthState.Authenticated
-                }else{
+                    val user = auth.currentUser
+                    user?.let{
+                        val profileUpdates = com.google.firebase.auth.UserProfileChangeRequest.Builder()
+                            .setDisplayName(data.name)
+                            .build()
+
+                        it.updateProfile(profileUpdates)
+                            .addOnCompleteListener{ updateTask->
+                                if(updateTask.isSuccessful){
+                                    _authState.value = AuthState.Authenticated
+                                    _userName.value = data.name
+                                }else{
+                                    _authState.value =
+                                        AuthState.Error(updateTask.exception?.message ?: "Something went wrong")
+                                }
+                            }
+                    }
+                }
+                else{
                     _authState.value =
                         AuthState.Error(task.exception?.message ?: "Something went wrong")
                 }
@@ -76,6 +102,7 @@ class AuthView: ViewModel() {
     fun signOut(navController: NavController){
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
+        _userName.value = null
     }
 }
 

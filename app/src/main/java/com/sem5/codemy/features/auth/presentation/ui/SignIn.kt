@@ -44,8 +44,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sem5.codemy.R
 import com.sem5.codemy.features.auth.data.SignInData
-import com.sem5.codemy.features.screens.auth.AuthState
-import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.montserratFontFamily
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 

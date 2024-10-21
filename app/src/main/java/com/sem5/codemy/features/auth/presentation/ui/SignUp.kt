@@ -43,8 +43,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sem5.codemy.R
-import com.sem5.codemy.features.screens.auth.AuthState
-import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.features.auth.data.SignUpData
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.montserratFontFamily
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 
@@ -54,6 +55,10 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
         mutableStateOf("")
     }
     var password by remember {
+        mutableStateOf("")
+    }
+
+    var name by remember{
         mutableStateOf("")
     }
 
@@ -117,6 +122,24 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
 
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth(),
+                    value = name    ,
+                    shape = RoundedCornerShape(5.dp),
+                    onValueChange = {
+                        name = it
+                    },
+                    label = {
+                        Text(
+                            text = "Username",
+                            fontSize = 12.sp,
+                            fontFamily = publicSansFontFamily,
+                            fontWeight = FontWeight.Medium
+                        )
+                    }
+                )
+                Spacer(modifier = Modifier.height(14.dp))
+
+                OutlinedTextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = email,
                     shape = RoundedCornerShape(5.dp),
                     onValueChange = {
@@ -158,7 +181,8 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                     colors = ButtonDefaults.buttonColors(Color(0xFF628ECB)),
                     shape = RoundedCornerShape(5.dp),
                     onClick = {
-                        authViewModel.signUp(email, password)
+                        val signUpData = SignUpData(name = name, email = email, password = password)
+                        authViewModel.signUp(signUpData)
                     },
                     enabled = authState.value != AuthState.Loading
                     ) {

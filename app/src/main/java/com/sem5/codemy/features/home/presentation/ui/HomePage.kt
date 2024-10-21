@@ -22,7 +22,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -32,13 +31,18 @@ import com.sem5.codemy.features.home.data.NewsData
 import com.sem5.codemy.features.home.presentation.component.Carousel
 import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.TopBar
-import com.sem5.codemy.features.screens.auth.AuthState
-import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.DarkBlue
 
 @Composable
-fun HomePage(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
+fun HomePage(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    authViewModel: AuthView,
+){
     val authState = authViewModel.authState.observeAsState()
+    val userName = authViewModel.userName.observeAsState()
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -59,7 +63,7 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
     Scaffold(
         topBar = {
             TopBar(
-                title = "Hello 👋 , Fridolin Austin",
+                title = "Hello 👋 , ${userName.value ?: "User"}",
                 actions = {
                     IconButton(
                         onClick = {},

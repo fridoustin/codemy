@@ -7,8 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sem5.codemy.features.screens.auth.AuthState
-import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.auth.presentation.ui.SignIn
 import com.sem5.codemy.features.auth.presentation.ui.SignUp
 import com.sem5.codemy.features.screens.challenge.ChallengeHomePage

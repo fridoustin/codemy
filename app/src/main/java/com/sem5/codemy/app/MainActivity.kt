@@ -12,7 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.sem5.codemy.core.navigation.NavigationApp
-import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.CodemyTheme
 
 class MainActivity : ComponentActivity() {

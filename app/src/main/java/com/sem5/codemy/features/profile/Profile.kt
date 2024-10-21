@@ -27,8 +27,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.TopBar
-import com.sem5.codemy.features.screens.auth.AuthState
-import com.sem5.codemy.features.screens.auth.AuthView
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.DarkBlue
 
 

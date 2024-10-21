@@ -35,7 +35,7 @@ fun ChallengeHomePage(modifier: Modifier = Modifier, navController: NavControlle
     Scaffold(
         topBar = {
             TopBar(
-                title = "Hello 👋 , Fridolin Austin",
+                title = "Yuk, selesaikan tantangannya",
                 actions = {
                     IconButton(
                         onClick = {},

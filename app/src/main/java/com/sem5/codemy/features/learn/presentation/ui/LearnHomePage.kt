@@ -44,7 +44,7 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
         containerColor = LightBlue,
         topBar = {
             TopBar(
-                title = "Hello 👋 , Fridolin Austin",
+                title = "Ingin belajar apa hari ini?",
                 actions = {
                     IconButton(
                         onClick = {},

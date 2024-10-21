@@ -47,7 +47,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
     Scaffold(
         topBar = {
             TopBar(
-                title = "Hello 👋 , Fridolin Austin",
+                title = "Profile",
                 actions = {
                     IconButton(
                         onClick = {},

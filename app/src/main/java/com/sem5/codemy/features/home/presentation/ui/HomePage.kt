@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Icon
@@ -21,10 +22,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.sem5.codemy.R
+import com.sem5.codemy.features.home.data.NewsData
+import com.sem5.codemy.features.home.presentation.component.Carousel
 import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.screens.auth.AuthState
@@ -37,6 +42,12 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+
+    val newsData = listOf(
+        NewsData(R.drawable.news1),
+        NewsData(R.drawable.news2),
+        NewsData(R.drawable.news3),
+    )
 
     LaunchedEffect(authState.value) {
         when(authState.value){
@@ -86,19 +97,29 @@ fun HomePage(modifier: Modifier = Modifier, navController: NavController, authVi
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "This is the temporary Home Page",
-                fontSize = 32.sp,
-                modifier = Modifier.padding(16.dp),
-                textAlign = TextAlign.Center
-            )
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                item {
+                    Carousel(newsData = newsData)
+                    Text(
+                        text = "This is the temporary Home Page",
+                        fontSize = 32.sp,
+                        modifier = Modifier.padding(16.dp),
+                        textAlign = TextAlign.Center
+                    )
 
-            TextButton(onClick = {
-                authViewModel.signOut(navController)
-            }) {
-                Text(text = "Sign Out")
+                    TextButton(onClick = {
+                        authViewModel.signOut(navController)
+                    }) {
+                        Text(text = "Sign Out")
+                    }
+                }
             }
-
         }
     }
 }

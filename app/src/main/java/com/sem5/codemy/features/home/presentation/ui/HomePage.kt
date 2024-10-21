@@ -21,6 +21,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,6 +35,7 @@ import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.DarkBlue
+import com.sem5.codemy.ui.theme.montserratFontFamily
 
 @Composable
 fun HomePage(
@@ -98,30 +100,30 @@ fun HomePage(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color(0xFFEFF4FA)),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+//            verticalArrangement = Arrangement.Center,
+//            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+//                verticalArrangement = Arrangement.spacedBy(16.dp),
+//                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 item {
                     Carousel(newsData = newsData)
-                    Text(
-                        text = "This is the temporary Home Page",
-                        fontSize = 32.sp,
-                        modifier = Modifier.padding(16.dp),
-                        textAlign = TextAlign.Center
-                    )
+                }
 
-                    TextButton(onClick = {
-                        authViewModel.signOut(navController)
-                    }) {
-                        Text(text = "Sign Out")
-                    }
+                item{
+                    Text(
+                        modifier = Modifier
+                            .padding(start = 26.dp, top = 16.dp),
+                        text = "Pelajaran",
+                        fontFamily = montserratFontFamily,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color.Black
+                    )
                 }
             }
         }

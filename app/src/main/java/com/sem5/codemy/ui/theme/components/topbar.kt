@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import com.sem5.codemy.ui.theme.BlueNormal
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.LightBlue
+import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +43,7 @@ fun TopBar(
                 color = Color.Black,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold,
+                fontFamily = publicSansFontFamily,
                 modifier = Modifier.padding(start = 16.dp)
             )
         },

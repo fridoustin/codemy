@@ -14,3 +14,9 @@ data class SignUpData(
 data class ResetPasswordData(
     val email: String
 )
+
+//data class UserData(
+//    val name: String,
+//    val email: String,
+//    val token: String
+//)

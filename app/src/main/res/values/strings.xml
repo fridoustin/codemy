@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Codemy</string>
+
+    <!-- Lesson Name -->
+    <string name="html">HTML</string>>
+    <string name="css">CSS</string>
+    <string name="js">JavaScript</string>
+    <string name="python">Python</string>
+    <string name="c">Programming</string>
+    <string name="java">Java</string>
 </resources>

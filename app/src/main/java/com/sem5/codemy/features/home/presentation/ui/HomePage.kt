@@ -3,26 +3,28 @@ package com.sem5.codemy.features.screens.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -34,6 +36,8 @@ import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
+import com.sem5.codemy.features.home.data.LessonCategories
+import com.sem5.codemy.features.home.presentation.component.LessonCard
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.montserratFontFamily
 
@@ -53,6 +57,14 @@ fun HomePage(
         NewsData(R.drawable.news1),
         NewsData(R.drawable.news2),
         NewsData(R.drawable.news3),
+    )
+    val lessonCategories = listOf(
+        LessonCategories(R.drawable.html, R.string.html),
+        LessonCategories(R.drawable.css, R.string.css),
+        LessonCategories(R.drawable.js, R.string.js),
+        LessonCategories(R.drawable.c, R.string.c),
+        LessonCategories(R.drawable.java, R.string.java),
+        LessonCategories(R.drawable.python, R.string.python)
     )
 
     LaunchedEffect(authState.value) {
@@ -124,6 +136,20 @@ fun HomePage(
                         fontWeight = FontWeight.Medium,
                         color = Color.Black
                     )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    LazyRow (
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        contentPadding = PaddingValues(horizontal = 26.dp)
+                    ){
+                        items(lessonCategories){ item ->
+                            LessonCard(
+                                lessonCategories = item,
+                                modifier = Modifier)
+                        }
+                    }
+//                    LessonCard(modifier = Modifier.padding(start = 26.dp, top = 16.dp))
                 }
             }
         }

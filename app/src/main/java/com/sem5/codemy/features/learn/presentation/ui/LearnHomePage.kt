@@ -23,6 +23,7 @@ import com.sem5.codemy.features.learn.data.LessonData
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.LightBlue
+import com.sem5.codemy.ui.theme.components.SearchBar
 
 
 @Composable
@@ -79,6 +80,10 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
                 .padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(20.dp)
         ){
+            item{
+                SearchBar(modifier = Modifier)
+            }
+
             items(lessonList){
                 lesson -> LessonUi(lessonData = lesson)
             }

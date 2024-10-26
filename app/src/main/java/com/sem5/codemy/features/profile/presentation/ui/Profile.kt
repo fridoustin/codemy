@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -29,6 +30,7 @@ import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
+import com.sem5.codemy.features.profile.presentation.components.LogoutButton
 import com.sem5.codemy.ui.theme.DarkBlue
 
 
@@ -91,11 +93,13 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
                 textAlign = TextAlign.Center
             )
 
-            TextButton(onClick = {
-                authViewModel.signOut(navController)
-            }) {
-                Text(text = "Sign Out")
-            }
+            LogoutButton { authViewModel.signOut(navController) }
+
+//            TextButton(onClick = {
+//                authViewModel.signOut(navController)
+//            }) {
+//                Text(text = "Sign Out")
+//            }
         }
     }
 }

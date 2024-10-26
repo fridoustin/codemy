@@ -39,6 +39,7 @@ import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.home.data.LessonCategories
 import com.sem5.codemy.features.home.presentation.component.LessonCard
 import com.sem5.codemy.ui.theme.DarkBlue
+import com.sem5.codemy.ui.theme.components.SearchBar
 import com.sem5.codemy.ui.theme.montserratFontFamily
 
 @Composable
@@ -111,17 +112,27 @@ fun HomePage(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFEFF4FA)),
+                .background(Color(0xFFEFF4FA))
+                .padding(innerPadding),
 //            verticalArrangement = Arrangement.Center,
 //            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+
+            SearchBar(modifier = Modifier)
+
+            Spacer(modifier = Modifier.height(8.dp))
+
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding),
+                    .fillMaxSize(),
 //                verticalArrangement = Arrangement.spacedBy(16.dp),
 //                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+//                item {
+//                    SearchBar(modifier = Modifier)
+//                }
+
                 item {
                     Carousel(newsData = newsData)
                 }
@@ -149,7 +160,6 @@ fun HomePage(
                                 modifier = Modifier)
                         }
                     }
-//                    LessonCard(modifier = Modifier.padding(start = 26.dp, top = 16.dp))
                 }
             }
         }

@@ -141,7 +141,7 @@ fun HomePage(
                     Text(
                         modifier = Modifier
                             .padding(start = 26.dp, top = 16.dp),
-                        text = "Pelajaran",
+                        text = "Bahasa Pemrograman",
                         fontFamily = montserratFontFamily,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Medium,

@@ -20,6 +20,9 @@ class AuthView: ViewModel() {
     private val _userName = MutableLiveData<String?>()
     val userName: LiveData<String?> = _userName
 
+    private val _userEmail = MutableLiveData<String>()
+    val userEmail: LiveData<String> = _userEmail
+
     init {
         checkAuthState()
     }
@@ -31,6 +34,7 @@ class AuthView: ViewModel() {
         }else{
             _authState.value = AuthState.Authenticated
             _userName.value = user.displayName
+            _userEmail.value = user.email
         }
     }
 
@@ -53,6 +57,7 @@ class AuthView: ViewModel() {
 
                             user?.let{
                                 _userName.value = it.displayName
+                                _userEmail.value = it.email
                             }
                         }else{
                             _authState.value =

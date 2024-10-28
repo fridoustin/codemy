@@ -39,8 +39,6 @@ fun LessonCard(
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
-
-
     ){
         Row(
             modifier = Modifier

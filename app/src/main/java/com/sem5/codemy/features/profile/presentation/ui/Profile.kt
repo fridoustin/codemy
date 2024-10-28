@@ -31,12 +31,15 @@ import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.profile.presentation.components.LogoutButton
+import com.sem5.codemy.features.profile.presentation.components.ProfileCard
 import com.sem5.codemy.ui.theme.DarkBlue
 
 
 @Composable
 fun Profile(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
     val authState = authViewModel.authState.observeAsState()
+    val userName = authViewModel.userName.observeAsState()
+    val userEmail = authViewModel.userEmail.observeAsState()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
     LaunchedEffect(authState.value) {
@@ -93,13 +96,12 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
                 textAlign = TextAlign.Center
             )
 
-            LogoutButton { authViewModel.signOut(navController) }
+            ProfileCard(
+                userName = {userName.value ?: "User"},
+                userEmail = {userEmail.value ?: "None"}
+            )
 
-//            TextButton(onClick = {
-//                authViewModel.signOut(navController)
-//            }) {
-//                Text(text = "Sign Out")
-//            }
+            LogoutButton { authViewModel.signOut(navController) }
         }
     }
 }

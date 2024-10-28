@@ -22,11 +22,8 @@ import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @Composable
 fun LogoutButton(
-//    navController: NavController,
-//    authViewModel: AuthView
     onClick: () -> Unit
 ){
-//    val authState = authViewModel.authState.observeAsState()
     Button(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,10 +32,9 @@ fun LogoutButton(
                 end = 26.dp,
             ),
         colors = ButtonDefaults.buttonColors(Color(0xFF628ECB)),
-        shape = RoundedCornerShape(5.dp),
+        shape = RoundedCornerShape(16.dp),
         onClick = {
             onClick()
-//            authViewModel.signOut(navController)
         },
     ) {
         Text(

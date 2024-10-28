@@ -1,7 +1,10 @@
 package com.sem5.codemy.features.screens.learn
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -74,20 +78,24 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
             )
         }
     ) { innerPadding ->
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .fillMaxHeight()
+                .fillMaxSize()
+                .background(Color(0xFFEFF4FA))
                 .padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
         ){
-            item{
-                SearchBar(modifier = Modifier)
+            SearchBar(modifier = Modifier)
+
+            LazyColumn(){
+                items(lessonList){
+                        lesson -> LessonUi(lessonData = lesson)
+                }
             }
 
-            items(lessonList){
-                lesson -> LessonUi(lessonData = lesson)
-            }
         }
+
+
+
     }
 }
 

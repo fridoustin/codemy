@@ -37,6 +37,7 @@ import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.home.data.LessonCategories
+import com.sem5.codemy.features.home.presentation.component.BigLessonCard
 import com.sem5.codemy.features.home.presentation.component.LessonCard
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.components.SearchBar
@@ -60,12 +61,11 @@ fun HomePage(
         NewsData(R.drawable.news3),
     )
     val lessonCategories = listOf(
-        LessonCategories(R.drawable.html, R.string.html),
-        LessonCategories(R.drawable.css, R.string.css),
-        LessonCategories(R.drawable.js, R.string.js),
         LessonCategories(R.drawable.c, R.string.c),
         LessonCategories(R.drawable.java, R.string.java),
-        LessonCategories(R.drawable.python, R.string.python)
+        LessonCategories(R.drawable.js, R.string.js),
+        LessonCategories(R.drawable.python, R.string.python),
+        LessonCategories(R.drawable.css, R.string.css),
     )
 
     LaunchedEffect(authState.value) {
@@ -120,7 +120,6 @@ fun HomePage(
 
             SearchBar(modifier = Modifier)
 
-            Spacer(modifier = Modifier.height(8.dp))
 
             LazyColumn(
                 modifier = Modifier
@@ -143,7 +142,7 @@ fun HomePage(
                             .padding(start = 26.dp, top = 16.dp),
                         text = "Bahasa Pemrograman",
                         fontFamily = montserratFontFamily,
-                        fontSize = 16.sp,
+                        fontSize = 20.sp,
                         fontWeight = FontWeight.Medium,
                         color = Color.Black
                     )
@@ -161,7 +160,25 @@ fun HomePage(
                         }
                     }
                 }
+
+                item{
+                    Text(
+                        text = "Topik Khusus",
+                        fontFamily = montserratFontFamily,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color.Black,
+                        modifier = Modifier
+                            .padding(start = 26.dp, top = 16.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    BigLessonCard(navController)
+                }
+
             }
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }

@@ -8,5 +8,6 @@ data class NewsData(
 
 data class LessonCategories(
     @DrawableRes val lessonThumbnail: Int,
-    val lessonTitle: Int
+    val lessonTitle: Int,
+    val route : String? = null
 )

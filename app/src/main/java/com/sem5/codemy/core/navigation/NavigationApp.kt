@@ -11,6 +11,7 @@ import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.auth.presentation.ui.SignIn
 import com.sem5.codemy.features.auth.presentation.ui.SignUp
+import com.sem5.codemy.features.learn.presentation.ui.WebProgrammingPage
 import com.sem5.codemy.features.screens.challenge.ChallengeHomePage
 import com.sem5.codemy.features.screens.home.HomePage
 import com.sem5.codemy.features.screens.learn.LearnHomePage
@@ -44,6 +45,9 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
         }
         composable("profile"){
             Profile(modifier, navController, authViewModel)
+        }
+        composable("webprogramming"){
+            WebProgrammingPage(modifier, navController)
         }
 //        composable("bottombar"){
 //            BottomBar(modifier, navController, authViewModel)

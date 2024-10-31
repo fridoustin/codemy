@@ -1,10 +1,8 @@
-package com.sem5.codemy.features.screens.learn
+package com.sem5.codemy.features.learn.presentation.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,33 +24,36 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.R
 import com.sem5.codemy.features.learn.data.LessonData
-import com.sem5.codemy.ui.theme.components.TopBar
+import com.sem5.codemy.features.screens.learn.LessonUi
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.LightBlue
+import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.SearchBar
+import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.ui.theme.montserratFontFamily
 
-
 @Composable
-fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
+fun WebProgrammingPage(modifier: Modifier = Modifier, navController: NavController){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
     val lessonList = listOf(
-        LessonData(R.drawable.cpimg, "Competitive Programming"),
-        LessonData(R.drawable.web, "Web Programming", "webprogramming"),
-        LessonData(R.drawable.cyberimg, "Cyber Security"),
-        LessonData(R.drawable.gameimg, "Game Developer")
+        LessonData(R.drawable.html, "Pengantar HTML"),
+        LessonData(R.drawable.css, "Dasar CSS"),
+        LessonData(R.drawable.css, "CSS Lanjutan"),
+        LessonData(R.drawable.js, "Dasar Java Script"),
+        LessonData(R.drawable.js, "Java Script Lanjutan"),
+        LessonData(R.drawable.sqlimg, "Belajar SQL"),
+        LessonData(R.drawable.web, "Membuat Web Sederhana")
     )
 
     Scaffold(
         containerColor = LightBlue,
         topBar = {
             TopBar(
-                title = "Ingin belajar apa hari ini?",
+                title = "Siap Menjadi Web Developer",
                 actions = {
                     IconButton(
                         onClick = {},
@@ -89,60 +90,25 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
         ){
             SearchBar(modifier = Modifier)
 
-//            Spacer(modifier = Modifier.height(8.dp))
-
             LazyColumn(){
-//                item{
-//                    Text(
-//                        text = "Web Programming",
-//                        fontFamily = montserratFontFamily,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.Medium,
-//                        color = Color.Black,
-//                        modifier = Modifier.padding(start = 26.dp, top = 16.dp , bottom = 16.dp)
-//                    )
-//                }
                 item{
-                    Spacer(modifier = Modifier.padding(bottom = 16.dp))
+                    Text(
+                        text = "Web Programming",
+                        fontFamily = montserratFontFamily,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color.Black,
+                        modifier = Modifier.padding(start = 26.dp, top = 16.dp , bottom = 16.dp)
+                    )
                 }
 
                 items(lessonList){
-                        lesson -> LessonUi(
-                            lessonData = lesson,
-                            onClick = {
-                                lesson.route?.let { navController.navigate(it) }
-                            }
-                        )
+                        lesson -> LessonUi(lessonData = lesson, onClick = {})
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
         }
-
-
-
     }
 }
-
-//@Composable
-//fun DisplayLessonData(){
-//    val lessonList = listOf(
-//        LessonData(R.drawable.displaylesson, "Pengantar Pemrograman"),
-//        LessonData(R.drawable.displaylesson, "Dasar Pemrograman"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut")
-//    )
-//
-//    LazyColumn(modifier = Modifier.fillMaxHeight().padding(20.dp),
-//        verticalArrangement = Arrangement.spacedBy(20.dp)
-//    ) {
-//        items(lessonList){
-//                lesson -> LessonUi(lessonData = lesson)
-//            }
-//       }
-//}
-

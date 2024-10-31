@@ -8,4 +8,12 @@
     <string name="python">Python</string>
     <string name="c">Programming</string>
     <string name="java">Java</string>
+    
+<!--     Topik Khusus -->
+    <string name="webprog">Web Programming</string>
+    <string name="cp">Comp Programming</string>
+    <string name="cyber">Cyber Security</string>
+    <string name="mobile">Mobile Programming</string>
+    <string name="data">Data Science</string>
+    <string name="game">Game Developer</string>
 </resources>

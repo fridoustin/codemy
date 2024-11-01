@@ -8,6 +8,8 @@ import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.sem5.codemy.features.auth.data.SignInData
 import com.sem5.codemy.features.auth.data.SignUpData
+import com.sem5.codemy.features.auth.domain.SignInResult
+import com.sem5.codemy.features.auth.domain.SignInUseCase
 import kotlinx.coroutines.launch
 
 class AuthView: ViewModel() {
@@ -65,7 +67,7 @@ class AuthView: ViewModel() {
                         }
                     }
             } catch (e: Exception){
-                _authState.value = AuthState.Error(e.message ?: "Unexpected Error Ocured")
+                _authState.value = AuthState.Error(e.message ?: "Unexpected Error Occurred")
             }
         }
     }

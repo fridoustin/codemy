@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.R
-import com.sem5.codemy.features.learn.data.LessonData
+import com.sem5.codemy.features.home.data.LessonCategories
 import com.sem5.codemy.features.screens.learn.LessonUi
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.LightBlue
@@ -40,13 +40,13 @@ fun WebProgrammingPage(modifier: Modifier = Modifier, navController: NavControll
     val currentRoute = navBackStackEntry?.destination?.route
 
     val lessonList = listOf(
-        LessonData(R.drawable.html, "Pengantar HTML"),
-        LessonData(R.drawable.css, "Dasar CSS"),
-        LessonData(R.drawable.css, "CSS Lanjutan"),
-        LessonData(R.drawable.js, "Dasar Java Script"),
-        LessonData(R.drawable.js, "Java Script Lanjutan"),
-        LessonData(R.drawable.sqlimg, "Belajar SQL"),
-        LessonData(R.drawable.web, "Membuat Web Sederhana")
+        LessonCategories(R.drawable.html, R.string.html1),
+        LessonCategories(R.drawable.css, R.string.css1),
+        LessonCategories(R.drawable.css, R.string.css2),
+        LessonCategories(R.drawable.js, R.string.js1),
+        LessonCategories(R.drawable.js, R.string.js2),
+        LessonCategories(R.drawable.sqlimg, R.string.sqli),
+        LessonCategories(R.drawable.web, R.string.web1)
     )
 
     Scaffold(
@@ -88,7 +88,7 @@ fun WebProgrammingPage(modifier: Modifier = Modifier, navController: NavControll
                 .background(Color(0xFFEFF4FA))
                 .padding(innerPadding),
         ){
-            SearchBar(modifier = Modifier)
+            SearchBar(navController)
 
             LazyColumn(){
                 item{
@@ -103,7 +103,7 @@ fun WebProgrammingPage(modifier: Modifier = Modifier, navController: NavControll
                 }
 
                 items(lessonList){
-                        lesson -> LessonUi(lessonData = lesson, onClick = {})
+                        lesson -> LessonUi(lessonCategories = lesson, onClick = {})
                 }
             }
 

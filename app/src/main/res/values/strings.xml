@@ -16,4 +16,15 @@
     <string name="mobile">Mobile Programming</string>
     <string name="data">Data Science</string>
     <string name="game">Game Developer</string>
+    <string name="cplong">Competitive Programming</string>
+
+<!--    Pelajaran Web-->
+    <string name="html1">Pengantar HTML</string>"
+    <string name="css1">Dasar CSS</string>
+    <string name="css2">CSS Lanjutan</string>
+    <string name="js1">Dasar Java Script</string>
+    <string name="js2">Java Script Lanjutan</string>
+    <string name="sqli">Belajar SQL</string>"
+    <string name="web1">Membuat Web Sederhana</string>
+
 </resources>

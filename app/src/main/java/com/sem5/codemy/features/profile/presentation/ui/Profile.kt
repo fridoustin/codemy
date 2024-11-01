@@ -53,7 +53,6 @@ import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.profile.presentation.components.LogoutButton
 import com.sem5.codemy.features.profile.presentation.components.ProfileCard
-import com.sem5.codemy.features.profile.presentation.components.uploadImageToFirebase
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 import kotlinx.coroutines.launch
@@ -114,12 +113,12 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
                 }
             )
         }
-    ){innerPadding -> Modifier.padding(innerPadding)
-
+    ){innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0xFFEFF4FA)),
+                .background(Color(0xFFEFF4FA))
+                .padding(innerPadding),
 //            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

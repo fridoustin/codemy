@@ -114,23 +114,15 @@ fun HomePage(
                 .fillMaxSize()
                 .background(Color(0xFFEFF4FA))
                 .padding(innerPadding),
-//            verticalArrangement = Arrangement.Center,
-//            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            SearchBar(modifier = Modifier)
+            SearchBar(navController)
 
 
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),
-//                verticalArrangement = Arrangement.spacedBy(16.dp),
-//                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
-//                item {
-//                    SearchBar(modifier = Modifier)
-//                }
 
                 item {
                     Carousel(newsData = newsData)
@@ -156,7 +148,9 @@ fun HomePage(
                         items(lessonCategories){ item ->
                             LessonCard(
                                 lessonCategories = item,
-                                modifier = Modifier)
+                                modifier = Modifier,
+                                onClick = {}
+                            )
                         }
                     }
                 }

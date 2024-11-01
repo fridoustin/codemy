@@ -28,12 +28,11 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.R
-import com.sem5.codemy.features.learn.data.LessonData
+import com.sem5.codemy.features.home.data.LessonCategories
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.LightBlue
 import com.sem5.codemy.ui.theme.components.SearchBar
-import com.sem5.codemy.ui.theme.montserratFontFamily
 
 
 @Composable
@@ -42,10 +41,10 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
     val currentRoute = navBackStackEntry?.destination?.route
 
     val lessonList = listOf(
-        LessonData(R.drawable.cpimg, "Competitive Programming"),
-        LessonData(R.drawable.web, "Web Programming", "webprogramming"),
-        LessonData(R.drawable.cyberimg, "Cyber Security"),
-        LessonData(R.drawable.gameimg, "Game Developer")
+        LessonCategories(R.drawable.cpimg, R.string.cplong),
+        LessonCategories(R.drawable.web, R.string.webprog, "webprogramming"),
+        LessonCategories(R.drawable.cyberimg, R.string.cyber),
+        LessonCategories(R.drawable.gameimg, R.string.game)
     )
 
     Scaffold(
@@ -87,62 +86,24 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
                 .background(Color(0xFFEFF4FA))
                 .padding(innerPadding),
         ){
-            SearchBar(modifier = Modifier)
-
-//            Spacer(modifier = Modifier.height(8.dp))
+            SearchBar(navController)
 
             LazyColumn(){
-//                item{
-//                    Text(
-//                        text = "Web Programming",
-//                        fontFamily = montserratFontFamily,
-//                        fontSize = 20.sp,
-//                        fontWeight = FontWeight.Medium,
-//                        color = Color.Black,
-//                        modifier = Modifier.padding(start = 26.dp, top = 16.dp , bottom = 16.dp)
-//                    )
-//                }
                 item{
                     Spacer(modifier = Modifier.padding(bottom = 16.dp))
                 }
 
                 items(lessonList){
                         lesson -> LessonUi(
-                            lessonData = lesson,
+                            lessonCategories = lesson,
                             onClick = {
                                 lesson.route?.let { navController.navigate(it) }
                             }
                         )
                 }
             }
-
             Spacer(modifier = Modifier.height(16.dp))
-
         }
-
-
-
     }
 }
-
-//@Composable
-//fun DisplayLessonData(){
-//    val lessonList = listOf(
-//        LessonData(R.drawable.displaylesson, "Pengantar Pemrograman"),
-//        LessonData(R.drawable.displaylesson, "Dasar Pemrograman"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut"),
-//        LessonData(R.drawable.displaylesson, "Pemrograman Lanjut")
-//    )
-//
-//    LazyColumn(modifier = Modifier.fillMaxHeight().padding(20.dp),
-//        verticalArrangement = Arrangement.spacedBy(20.dp)
-//    ) {
-//        items(lessonList){
-//                lesson -> LessonUi(lessonData = lesson)
-//            }
-//       }
-//}
 

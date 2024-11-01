@@ -32,13 +32,17 @@ import com.sem5.codemy.ui.theme.montserratFontFamily
 @Composable
 fun LessonCard(
     lessonCategories: LessonCategories,
-    modifier: Modifier
+    modifier: Modifier,
+    onClick: () -> Unit
 ){
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(Color.White),
         elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+        onClick = {
+            onClick()
+        }
     ){
         Row(
             modifier = Modifier
@@ -85,7 +89,9 @@ fun LessonCardPreview(){
         items(lessonCategories){ item ->
             LessonCard(
                 lessonCategories = item,
-                modifier = Modifier            )
+                modifier = Modifier ,
+                onClick = {}
+            )
         }
     }
 

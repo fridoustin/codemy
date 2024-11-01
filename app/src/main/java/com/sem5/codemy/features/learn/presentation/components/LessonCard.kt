@@ -19,17 +19,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sem5.codemy.R
-import com.sem5.codemy.features.learn.data.LessonData
+import com.sem5.codemy.features.home.data.LessonCategories
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @Composable
 fun LessonUi(
-    lessonData: LessonData,
+    lessonCategories: LessonCategories,
     onClick: () -> Unit
 ){
     Card(
@@ -50,7 +51,7 @@ fun LessonUi(
 //            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = painterResource(id = lessonData.thumbnail),
+                painter = painterResource(id = lessonCategories.lessonThumbnail),
                 contentDescription = null,
                 modifier = Modifier.size(60.dp)
             )
@@ -63,7 +64,7 @@ fun LessonUi(
             )
             {
                 Text(
-                    text = lessonData.lessonTitle,
+                    text = stringResource(id = lessonCategories.lessonTitle),
                     color = Color.Black,
                     fontFamily = publicSansFontFamily,
                     fontWeight = FontWeight.Medium,

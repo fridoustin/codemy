@@ -37,12 +37,10 @@ fun BigLessonCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 26.dp, end = 26.dp, bottom = 16.dp),
-//        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
     ){
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-//            modifier = Modifier.padding(start = 26.dp, bottom = 16.dp)
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ){

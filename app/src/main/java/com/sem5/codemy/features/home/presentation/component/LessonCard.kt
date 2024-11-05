@@ -71,28 +71,27 @@ fun LessonCard(
     }
 }
 
-@Preview
-@Composable
-fun LessonCardPreview(){
-
-    val lessonCategories = listOf(
-        LessonCategories(R.drawable.html, R.string.html),
-        LessonCategories(R.drawable.css, R.string.css),
-        LessonCategories(R.drawable.js, R.string.js),
-        LessonCategories(R.drawable.c, R.string.c),
-        LessonCategories(R.drawable.java, R.string.java),
-        LessonCategories(R.drawable.python, R.string.python)
-    )
-    LazyRow (
-        horizontalArrangement = Arrangement.spacedBy(24.dp)
-    ){
-        items(lessonCategories){ item ->
-            LessonCard(
-                lessonCategories = item,
-                modifier = Modifier ,
-                onClick = {}
-            )
-        }
-    }
-
-}
+//@Preview
+//@Composable
+//fun LessonCardPreview(){
+//
+//    val lessonCategories = listOf(
+//        LessonCategories(R.drawable.html, R.string.html),
+//        LessonCategories(R.drawable.css, R.string.css),
+//        LessonCategories(R.drawable.js, R.string.js),
+//        LessonCategories(R.drawable.c, R.string.c),
+//        LessonCategories(R.drawable.java, R.string.java),
+//        LessonCategories(R.drawable.python, R.string.python)
+//    )
+//    LazyRow (
+//        horizontalArrangement = Arrangement.spacedBy(24.dp)
+//    ){
+//        items(lessonCategories){ item ->
+//            LessonCard(
+//                lessonCategories = item,
+//                modifier = Modifier ,
+//                onClick = {}
+//            )
+//        }
+//    }
+//}

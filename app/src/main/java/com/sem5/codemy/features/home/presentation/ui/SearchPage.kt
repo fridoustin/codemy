@@ -1,11 +1,19 @@
 package com.sem5.codemy.features.home.presentation.ui
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,15 +40,22 @@ import com.sem5.codemy.ui.theme.BlueNormal
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.ui.theme.DarkBlue
+import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.TopBar
 
 @Composable
-fun SearchScreen(viewModel: SearchViewModel){
+fun SearchScreen(viewModel: SearchViewModel, navController: NavController){
     val searchText by viewModel.searchText.collectAsState()
     val isSearching by viewModel.isSearching.collectAsState()
     val lessons by viewModel.lessons.collectAsState()
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
         topBar = {
@@ -62,11 +77,23 @@ fun SearchScreen(viewModel: SearchViewModel){
                 }
             )
         },
-    ){innerPadding ->
-        Box(
+        bottomBar = {
+            BottomBar(
+                currentScreen = currentRoute ?: "",
+                navController = navController,
+                onItemSelected = { selectedScreen ->
+                    if (selectedScreen != currentRoute) {
+                        navController.navigate(selectedScreen)
+                    }
+                }
+            )
+        }
+    ){ innerPadding->
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(BlueNormal)
+                .fillMaxHeight()
+                .background(Color(0xFFEFF4FA))
                 .padding(innerPadding)
         ) {
             Card(
@@ -123,16 +150,35 @@ fun SearchScreen(viewModel: SearchViewModel){
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 16.dp)
+                            .background(Color(0xFFEFF4FA))
                     ){
                         items(lessons.size){ index ->
                             val lesson = lessons[index]
-                            Text(
-                                text = stringResource(id = lesson.lessonTitle),
+                            Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(vertical = 8.dp)
-                            )
+                                    .padding(start = 26.dp, end = 26.dp)
+                                    .clickable(onClick = { lesson.route?.let {
+                                        navController.navigate(
+                                            it
+                                        )
+                                    } }),
+                                verticalAlignment = Alignment.CenterVertically,
+                            ){
+                                Image(
+                                    painter = painterResource(id = lesson.lessonThumbnail),
+                                    contentDescription = "",
+                                    modifier = Modifier.size(30.dp)
+                                )
+                                Spacer(modifier = Modifier.padding(8.dp))
+                                Text(
+                                    text = stringResource(id = lesson.lessonTitle),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 16.dp)
+                                )
+                            }
+
                         }
                     }
                 }

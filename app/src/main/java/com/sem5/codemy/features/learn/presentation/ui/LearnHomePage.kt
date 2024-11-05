@@ -41,7 +41,7 @@ fun LearnHomePage(modifier: Modifier = Modifier, navController: NavController){
     val currentRoute = navBackStackEntry?.destination?.route
 
     val lessonList = listOf(
-        LessonCategories(R.drawable.cpimg, R.string.cplong),
+        LessonCategories(R.mipmap.cpimg, R.string.cplong),
         LessonCategories(R.drawable.web, R.string.webprog, "webprogramming"),
         LessonCategories(R.drawable.cyberimg, R.string.cyber),
         LessonCategories(R.drawable.gameimg, R.string.game)

@@ -60,10 +60,9 @@ private val allLessons = listOf(
     LessonCategories(R.drawable.js, R.string.js),
     LessonCategories(R.drawable.python, R.string.python),
     LessonCategories(R.drawable.css, R.string.css),
-    LessonCategories(R.drawable.cpimg, R.string.cplong),
+    LessonCategories(R.mipmap.cpimg, R.string.cplong),
     LessonCategories(R.drawable.web, R.string.webprog, "webprogramming"),
     LessonCategories(R.drawable.cyberimg, R.string.cyber),
     LessonCategories(R.drawable.gameimg, R.string.game),
     LessonCategories(R.drawable.html, R.string.html),
-    LessonCategories(R.drawable.css, R.string.css),
 )

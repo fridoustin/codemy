@@ -54,7 +54,7 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
             WebProgrammingPage(modifier, navController)
         }
         composable("search"){
-            SearchScreen(viewModel = searchViewModel)
+            SearchScreen(viewModel = searchViewModel, navController)
         }
 //        composable("bottombar"){
 //            BottomBar(modifier, navController, authViewModel)

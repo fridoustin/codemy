@@ -65,7 +65,6 @@ fun HomePage(
         LessonCategories(R.drawable.java, R.string.java),
         LessonCategories(R.drawable.js, R.string.js),
         LessonCategories(R.drawable.python, R.string.python),
-        LessonCategories(R.drawable.css, R.string.css),
     )
 
     LaunchedEffect(authState.value) {

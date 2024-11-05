@@ -48,7 +48,7 @@ fun BigLessonCard(
                 modifier = Modifier.padding(bottom = 16.dp)
             ) {
                 SmallCard(
-                    LessonCategories(R.drawable.cpimg, R.string.cp),
+                    LessonCategories(R.mipmap.cpimg, R.string.cp),
                     onClick = {
 
                     }

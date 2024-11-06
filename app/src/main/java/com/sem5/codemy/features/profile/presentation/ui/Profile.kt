@@ -88,7 +88,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
                 title = "Profile",
                 actions = {
                     IconButton(
-                        onClick = {},
+                        onClick = {navController.navigate("notification")},
                         modifier = Modifier
                             .width(50.dp)
                             .padding(end = 16.dp)

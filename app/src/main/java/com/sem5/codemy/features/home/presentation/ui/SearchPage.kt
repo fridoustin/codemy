@@ -1,6 +1,5 @@
 package com.sem5.codemy.features.home.presentation.ui
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,22 +31,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.sem5.codemy.features.home.presentation.viewmodel.SearchViewModel
-import com.sem5.codemy.ui.theme.BlueNormal
-import com.sem5.codemy.ui.theme.publicSansFontFamily
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.sem5.codemy.ui.theme.BlueNormal
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.components.BottomBar
+import com.sem5.codemy.ui.theme.components.SearchBar
 import com.sem5.codemy.ui.theme.components.TopBar
+import com.sem5.codemy.ui.theme.publicSansFontFamily
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel, navController: NavController){
@@ -60,21 +59,21 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController){
     Scaffold(
         topBar = {
             TopBar(
-                title = "Search",
-                actions = {
-                    IconButton(
-                        onClick = {},
-                        modifier = Modifier
-                            .width(50.dp)
-                            .padding(end = 16.dp)
-                    ){
-                        Icon(
-                            imageVector = Icons.Default.Notifications,
-                            contentDescription = "Notifications",
-                            tint = DarkBlue
-                        )
-                    }
-                }
+                title = "Search"
+//                actions = {
+//                    IconButton(
+//                        onClick = {navController.navigate("notification")},
+//                        modifier = Modifier
+//                            .width(50.dp)
+//                            .padding(end = 16.dp)
+//                    ){
+//                        Icon(
+//                            imageVector = Icons.Default.Notifications,
+//                            contentDescription = "Notifications",
+//                            tint = DarkBlue
+//                        )
+//                    }
+//                }
             )
         },
         bottomBar = {
@@ -96,90 +95,97 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController){
                 .background(Color(0xFFEFF4FA))
                 .padding(innerPadding)
         ) {
-            Card(
-                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth(),
-                colors = CardDefaults.cardColors(Color.White),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                    .fillMaxWidth()
+                    .background(BlueNormal)
             ){
-                OutlinedTextField(
+                Card(
+                    shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(
-                            start = 26.dp,
-                            end = 26.dp,
-                            top = 10.dp,
-                            bottom = 10.dp
-                        )
-                        .border(
-                            width = 1.dp,
-                            color = Color.Gray,
-                            shape = RoundedCornerShape(20.dp)
-                        ),
-                    shape = RoundedCornerShape(20.dp),
-                    value = searchText,
-                    onValueChange = viewModel::onSearchTextChange,
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Search",
-                            tint = Color.Gray,
-                            modifier = Modifier.padding(start = 20.dp)
-                        )
-                    },
-                    placeholder = {
-                        Text(
-                            text = "Apa yang kamu cari?",
-                            fontFamily = publicSansFontFamily,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 12.sp,
-                        )
-                    }
-                )
-                if(isSearching){
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                    ){
-                        CircularProgressIndicator(
-                            modifier = Modifier.align(Alignment.Center)
-                        )
-                    }
-                } else {
-                    LazyColumn(
+                        .fillMaxWidth(),
+                    colors = CardDefaults.cardColors(Color.White),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+                ) {
+                    OutlinedTextField(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(Color(0xFFEFF4FA))
-                    ){
-                        items(lessons.size){ index ->
-                            val lesson = lessons[index]
-                            Row(
+                            .padding(
+                                start = 26.dp,
+                                end = 26.dp,
+                                top = 10.dp,
+                                bottom = 10.dp
+                            )
+                            .border(
+                                width = 1.dp,
+                                color = Color.Gray,
+                                shape = RoundedCornerShape(20.dp)
+                            ),
+                        shape = RoundedCornerShape(20.dp),
+                        value = searchText,
+                        onValueChange = viewModel::onSearchTextChange,
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search",
+                                tint = Color.Gray,
+                                modifier = Modifier.padding(start = 20.dp)
+                            )
+                        },
+                        placeholder = {
+                            Text(
+                                text = "Apa yang kamu cari?",
+                                fontFamily = publicSansFontFamily,
+                                fontWeight = FontWeight.Medium,
+                                fontSize = 12.sp,
+                            )
+                        }
+                    )
+                }
+            }
+
+            if(isSearching){
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ){
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFFEFF4FA))
+                ){
+                    items(lessons.size){ index ->
+                        val lesson = lessons[index]
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 26.dp, end = 26.dp)
+                                .clickable(onClick = { lesson.route?.let {
+                                    navController.navigate(
+                                        it
+                                    )
+                                } }),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ){
+                            Image(
+                                painter = painterResource(id = lesson.lessonThumbnail),
+                                contentDescription = "",
+                                modifier = Modifier.size(30.dp)
+                            )
+                            Spacer(modifier = Modifier.padding(8.dp))
+                            Text(
+                                text = stringResource(id = lesson.lessonTitle),
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(start = 26.dp, end = 26.dp)
-                                    .clickable(onClick = { lesson.route?.let {
-                                        navController.navigate(
-                                            it
-                                        )
-                                    } }),
-                                verticalAlignment = Alignment.CenterVertically,
-                            ){
-                                Image(
-                                    painter = painterResource(id = lesson.lessonThumbnail),
-                                    contentDescription = "",
-                                    modifier = Modifier.size(30.dp)
-                                )
-                                Spacer(modifier = Modifier.padding(8.dp))
-                                Text(
-                                    text = stringResource(id = lesson.lessonTitle),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .padding(vertical = 16.dp)
-                                )
-                            }
-
+                                    .padding(vertical = 16.dp)
+                            )
                         }
+
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package com.sem5.codemy.core.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
@@ -12,6 +13,7 @@ import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.auth.presentation.ui.SignIn
 import com.sem5.codemy.features.auth.presentation.ui.SignUp
+import com.sem5.codemy.features.home.presentation.ui.NotificationPage
 import com.sem5.codemy.features.home.presentation.ui.SearchScreen
 import com.sem5.codemy.features.home.presentation.viewmodel.SearchViewModel
 import com.sem5.codemy.features.learn.presentation.ui.WebProgrammingPage
@@ -55,6 +57,9 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
         }
         composable("search"){
             SearchScreen(viewModel = searchViewModel, navController)
+        }
+        composable("notification"){
+            NotificationPage(navController)
         }
 //        composable("bottombar"){
 //            BottomBar(modifier, navController, authViewModel)

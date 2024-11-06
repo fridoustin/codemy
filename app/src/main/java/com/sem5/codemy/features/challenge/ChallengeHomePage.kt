@@ -38,7 +38,7 @@ fun ChallengeHomePage(modifier: Modifier = Modifier, navController: NavControlle
                 title = "Yuk, selesaikan tantangannya",
                 actions = {
                     IconButton(
-                        onClick = {},
+                        onClick = {navController.navigate("notification")},
                         modifier = Modifier
                             .width(50.dp)
                             .padding(end = 16.dp)

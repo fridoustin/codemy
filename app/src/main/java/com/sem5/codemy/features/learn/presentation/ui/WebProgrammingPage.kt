@@ -56,7 +56,7 @@ fun WebProgrammingPage(modifier: Modifier = Modifier, navController: NavControll
                 title = "Siap Menjadi Web Developer",
                 actions = {
                     IconButton(
-                        onClick = {},
+                        onClick = {navController.navigate("notification")},
                         modifier = Modifier
                             .width(50.dp)
                             .padding(end = 16.dp)
@@ -88,7 +88,9 @@ fun WebProgrammingPage(modifier: Modifier = Modifier, navController: NavControll
                 .background(Color(0xFFEFF4FA))
                 .padding(innerPadding),
         ){
-            SearchBar(navController)
+            SearchBar(
+                navController
+            )
 
             LazyColumn(){
                 item{

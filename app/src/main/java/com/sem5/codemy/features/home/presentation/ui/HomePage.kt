@@ -80,7 +80,7 @@ fun HomePage(
                 title = "Hello 👋 , ${userName.value ?: "User"}",
                 actions = {
                     IconButton(
-                        onClick = {},
+                        onClick = {navController.navigate("notification")},
                         modifier = Modifier
                             .width(50.dp)
                             .padding(end = 16.dp)
@@ -107,7 +107,7 @@ fun HomePage(
                 }
             )
         }
-    ){innerPadding -> Modifier.padding(innerPadding)
+    ){innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -115,7 +115,9 @@ fun HomePage(
                 .padding(innerPadding),
         ) {
 
-            SearchBar(navController)
+            SearchBar(
+                navController
+            )
 
 
             LazyColumn(

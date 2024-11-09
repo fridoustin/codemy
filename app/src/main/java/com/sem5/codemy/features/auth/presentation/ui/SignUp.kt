@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sem5.codemy.R
 import com.sem5.codemy.features.auth.data.SignUpData
+import com.sem5.codemy.features.auth.data.User
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.montserratFontFamily
@@ -181,8 +182,12 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                     colors = ButtonDefaults.buttonColors(Color(0xFF628ECB)),
                     shape = RoundedCornerShape(5.dp),
                     onClick = {
-                        val signUpData = SignUpData(name = name, email = email, password = password)
-                        authViewModel.signUp(signUpData)
+                        val user = User(
+                            name = name,
+                            email = email,
+                            password = password
+                        )
+                        authViewModel.signUp(user)
                     },
                     enabled = authState.value != AuthState.Loading
                     ) {

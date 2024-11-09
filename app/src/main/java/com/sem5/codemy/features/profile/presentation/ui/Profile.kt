@@ -185,7 +185,7 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
 //                )
 //            }
 
-            LogoutButton { authViewModel.signOut(navController) }
+            LogoutButton { authViewModel.signOut() }
         }
     }
 }

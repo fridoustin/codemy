@@ -1,6 +1,10 @@
 package com.sem5.codemy.features.auth.presentation.ui
 
+import android.app.Activity
+import android.content.Intent
+import android.util.Log
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,8 +46,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.api.Context
 import com.sem5.codemy.R
 import com.sem5.codemy.features.auth.data.SignInData
+import com.sem5.codemy.features.auth.data.User
+import com.sem5.codemy.features.auth.presentation.components.GoogleSignInButton
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.ui.theme.montserratFontFamily
@@ -160,8 +171,11 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
                     colors = ButtonDefaults.buttonColors(Color(0xFF628ECB)),
                     shape = RoundedCornerShape(5.dp),
                     onClick = {
-                        val signInData = SignInData(email, password)
-                        authViewModel.login(signInData)
+                        val user = User(
+                            email = email,
+                            password = password
+                        )
+                        authViewModel.login(user)
                     },
                     enabled = authState.value != AuthState.Loading
                     ) {
@@ -204,6 +218,32 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
 
                 Spacer(modifier = Modifier.height(14.dp))
 
+                GoogleSignInButton { account ->
+                    account?.let{authViewModel.signinWithGoogle(it)}
+                }
+
+//                Button(
+//                    modifier = Modifier.fillMaxWidth(),
+//                    colors = ButtonDefaults.buttonColors(Color.White),
+//                    border = BorderStroke(1.dp, Color.Black),
+//                    shape = RoundedCornerShape(5.dp),
+//                    onClick = {
+//                        val googleSignInClient = getGoogleSignInClient(context)
+//                        val signInIntent = googleSignInClient.signInIntent
+//                    (context as Activity).startActivityForResult(signInIntent, RC_SIGN_IN)
+//                    }
+//                ) {
+//                    Text(
+//                        text = "Sign In With Google",
+//                        fontSize = 12.sp,
+//                        fontFamily = publicSansFontFamily,
+//                        fontWeight = FontWeight.Medium,
+//                        color = Color.Black
+//                    )
+//                }
+
+                Spacer(modifier = Modifier.height(14.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
@@ -230,5 +270,25 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
                 }
             }
         }
+
+//        fun getGoogleSignInClient(context: Context): GoogleSignInClient {
+//            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(context.getString(R.string.web_client_id))
+//                .requestEmail()
+//                .build()
+//            return GoogleSignIn.getClient(context, gso)
+//        }
+//
+//        fun handleSignInResult(data: Intent?, authViewModel: AuthView) {
+//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+//            try {
+//                val account = task.getResult(ApiException::class.java)
+//                account?.let {
+//                    authViewModel.signinWithGoogle(it)
+//                }
+//            } catch (e: ApiException) {
+//                Log.w("SignInScreen", "Google sign-in failed", e)
+//            }
+//        }
     }
 }

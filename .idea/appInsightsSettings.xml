@@ -10,9 +10,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.sem5.codemy" />
-                  <option name="mobileSdkAppId" value="1:382293926676:android:1e52134c5a22e324c9d801" />
-                  <option name="projectId" value="codemy-dc7b5" />
-                  <option name="projectNumber" value="382293926676" />
+                  <option name="mobileSdkAppId" value="1:1049575970115:android:0cb2b4fe5cbdada51d0bf6" />
+                  <option name="projectId" value="codemy-6a74e" />
+                  <option name="projectNumber" value="1049575970115" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

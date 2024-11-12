@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.screens.learn
+package com.sem5.codemy.features.learn.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -24,6 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.R
 import com.sem5.codemy.features.home.data.LessonCategories
+import com.sem5.codemy.features.learn.presentation.components.LessonUi
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.LightBlue

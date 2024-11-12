@@ -1,4 +1,4 @@
-//package com.sem5.codemy.features.profile.presentation.components
+package com.sem5.codemy.features.profile.presentation.components
 //
 //import android.graphics.Bitmap
 //import android.net.Uri

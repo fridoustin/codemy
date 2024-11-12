@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.screens.learn
+package com.sem5.codemy.features.learn.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

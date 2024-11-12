@@ -1,4 +1,4 @@
-package com.sem5.codemy.features.screens.profile
+package com.sem5.codemy.features.profile.presentation.ui
 
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -27,6 +27,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,33 +49,36 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import coil.compose.rememberImagePainter
+import com.google.firebase.firestore.FirebaseFirestore
+import com.sem5.codemy.features.auth.data.User
 import com.sem5.codemy.ui.theme.components.BottomBar
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
+import com.sem5.codemy.features.profile.data.remote.getUserProfile
 import com.sem5.codemy.features.profile.presentation.components.LogoutButton
 import com.sem5.codemy.features.profile.presentation.components.ProfileCard
+import com.sem5.codemy.features.profile.presentation.viewmodel.ProfileViewModel
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.publicSansFontFamily
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 
 @Composable
-fun Profile(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthView){
+fun Profile(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+    authViewModel: AuthView,
+){
     val authState = authViewModel.authState.observeAsState()
     val userName = authViewModel.userName.observeAsState()
     val userEmail = authViewModel.userEmail.observeAsState()
+    var userPhoto = authViewModel.userPhoto.observeAsState()
+    val coroutineScope = rememberCoroutineScope()
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val coroutineScope = rememberCoroutineScope()
-    var imageUri by remember {mutableStateOf<Uri?>(null)}
-    var profileImage by remember { mutableStateOf<String?>(null) }
-    val imagePickerLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent(),
-    ){
-        uri : Uri? ->
-        imageUri = uri
-    }
 
     LaunchedEffect(authState.value) {
         when(authState.value){
@@ -81,7 +86,6 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
             else -> Unit
         }
     }
-
     Scaffold(
         topBar = {
             TopBar(
@@ -119,73 +123,40 @@ fun Profile(modifier: Modifier = Modifier, navController: NavController, authVie
                 .fillMaxSize()
                 .background(Color(0xFFEFF4FA))
                 .padding(innerPadding),
-//            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            if(profileImage != null){
-//                AsyncImage(
-//                    model = profileImage,
+
+//            if(userPhoto != null){
+//                Image(
+//                    painter = rememberImagePainter(userPhoto),
 //                    contentDescription = "Profile Picture",
-//                    modifier = Modifier.size(100.dp)
+//                    contentScale = ContentScale.Crop,
+//                    modifier = Modifier
+//                        .size(100.dp)
 //                )
 //            } else {
-//                Icon(
-//                    imageVector = Icons.Default.Person,
-//                    contentDescription = "Default Profile Picture",
-//                    modifier = Modifier.size(100.dp),
-//                    tint = Color.Gray
-//                )
+                Icon(
+                    imageVector = Icons.Default.Person,
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(100.dp)
+                )
 //            }
-//
-//
-//
-//            LaunchedEffect(imageUri) {
-//                imageUri?.let { uri ->
-//                    coroutineScope.launch {
-//                        uploadImageToFirebase(uri,
-//                            onSuccess = { downloadUrl ->
-//                                profileImage = downloadUrl
-//                            },
-//                            onFailure = { e ->
-//                                println("Error uploading image: ${e.message}")
-//                            }
-//                        )
-//                    }
-//                }
-//            }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             ProfileCard(
                 userName = {userName.value ?: ""},
                 userEmail = {userEmail.value ?: ""}
             )
 
-//            Button(
-//                modifier = Modifier
-//                    .fillMaxWidth()
-//                    .padding(
-//                        start = 26.dp,
-//                        end = 26.dp,
-//                    ),
-//                colors = ButtonDefaults.buttonColors(Color(0xFF628ECB)),
-//                shape = RoundedCornerShape(16.dp),
-//                onClick = {imagePickerLauncher.launch("image/*")}
-////                onClick = {
-////                    isUpload.value = true
-////                    bitmap.value.let {bitmap ->
-////                        uploadImageToFirebase()
-////                    }
-////                }
-//            ){
-//                Text(
-//                    text = "Change Photo",
-//                    fontFamily = publicSansFontFamily,
-//                    fontSize = 12.sp,
-//                    color = Color(0xFFF0F3FA),
-//                    fontWeight = FontWeight.Medium
-//                )
-//            }
-
             LogoutButton { authViewModel.signOut() }
         }
     }
+}
+
+suspend fun getProfilePhotoUrl(userId: String): String? {
+    val db = FirebaseFirestore.getInstance()
+    val document = db.collection("users").document(userId).get().await()
+    return document.getString("profilePhotoUrl")
 }

@@ -26,7 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.sem5.codemy.R
 import com.sem5.codemy.features.home.data.LessonCategories
-import com.sem5.codemy.features.screens.learn.LessonUi
+import com.sem5.codemy.features.learn.presentation.components.LessonUi
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.LightBlue
 import com.sem5.codemy.ui.theme.components.BottomBar

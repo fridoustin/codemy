@@ -1,11 +1,13 @@
 package com.sem5.codemy.features.profile.presentation.ui
 
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
@@ -36,6 +39,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -49,6 +53,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import coil.compose.rememberImagePainter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sem5.codemy.features.auth.data.User
 import com.sem5.codemy.ui.theme.components.BottomBar
@@ -72,13 +78,23 @@ fun Profile(
     authViewModel: AuthView,
 ){
     val authState = authViewModel.authState.observeAsState()
-    val userName = authViewModel.userName.observeAsState()
-    val userEmail = authViewModel.userEmail.observeAsState()
-    var userPhoto = authViewModel.userPhoto.observeAsState()
-    val coroutineScope = rememberCoroutineScope()
+    val userName = remember { mutableStateOf<String?>(null) }
+    val userEmail = remember { mutableStateOf<String?>(null) }
+    val profilePhotoUrl = remember { mutableStateOf<String?>(null) }
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val userId =  FirebaseAuth.getInstance().currentUser?.uid
+
+    LaunchedEffect(userId) {
+        if(userId != null){
+            val userDocument = getUserDocument(userId)
+            userName.value = userDocument?.getString("name")
+            userEmail.value = userDocument?.getString("email")
+            profilePhotoUrl.value = userDocument?.getString("photo")
+
+        }
+    }
 
     LaunchedEffect(authState.value) {
         when(authState.value){
@@ -125,23 +141,30 @@ fun Profile(
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier = Modifier.height(24.dp))
 
-//            if(userPhoto != null){
-//                Image(
-//                    painter = rememberImagePainter(userPhoto),
-//                    contentDescription = "Profile Picture",
-//                    contentScale = ContentScale.Crop,
-//                    modifier = Modifier
-//                        .size(100.dp)
-//                )
-//            } else {
+            profilePhotoUrl.value?.let { photoUrl ->
+                AsyncImage(
+                    model = photoUrl,
+                    contentDescription = "Profile Picture",
+                    modifier = Modifier
+                        .size(200.dp)
+                        .clip(CircleShape)
+                )
+            } ?: Box(
+                modifier = Modifier
+                    .size(200.dp)
+                    .clip(CircleShape)
+                    .background(Color.Gray),
+                contentAlignment = Alignment.Center
+            ) {
                 Icon(
                     imageVector = Icons.Default.Person,
                     contentDescription = "Profile Picture",
-                    modifier = Modifier
-                        .size(100.dp)
+                    tint = Color.White,
+                    modifier = Modifier.size(150.dp)
                 )
-//            }
+            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -155,8 +178,12 @@ fun Profile(
     }
 }
 
-suspend fun getProfilePhotoUrl(userId: String): String? {
-    val db = FirebaseFirestore.getInstance()
-    val document = db.collection("users").document(userId).get().await()
-    return document.getString("profilePhotoUrl")
+suspend fun getUserDocument(userId: String): DocumentSnapshot? {
+    return try {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(userId).get().await()
+    } catch (e: Exception) {
+        Log.e("FirestoreError", "Error fetching user document: ${e.message}")
+        null
+    }
 }

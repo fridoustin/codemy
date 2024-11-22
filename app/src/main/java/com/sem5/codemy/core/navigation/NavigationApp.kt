@@ -20,6 +20,7 @@ import com.sem5.codemy.features.learn.presentation.ui.WebProgrammingPage
 import com.sem5.codemy.features.screens.challenge.ChallengeHomePage
 import com.sem5.codemy.features.screens.home.HomePage
 import com.sem5.codemy.features.learn.presentation.ui.LearnHomePage
+import com.sem5.codemy.features.profile.presentation.ui.ChangeProfile
 import com.sem5.codemy.features.profile.presentation.ui.Profile
 import com.sem5.codemy.features.profile.presentation.viewmodel.ProfileViewModel
 
@@ -61,6 +62,9 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
         }
         composable("notification"){
             NotificationPage(navController)
+        }
+        composable("changeprofile") {
+            ChangeProfile(navController)
         }
 //        composable("bottombar"){
 //            BottomBar(modifier, navController, authViewModel)

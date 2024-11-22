@@ -253,8 +253,6 @@ fun SignUp(modifier: Modifier = Modifier, navController: NavController, authView
                     )
                 }
             }
-
         }
-
     }
 }

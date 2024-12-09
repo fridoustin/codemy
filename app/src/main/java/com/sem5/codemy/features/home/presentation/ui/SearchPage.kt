@@ -60,20 +60,6 @@ fun SearchScreen(viewModel: SearchViewModel, navController: NavController){
         topBar = {
             TopBar(
                 title = "Search"
-//                actions = {
-//                    IconButton(
-//                        onClick = {navController.navigate("notification")},
-//                        modifier = Modifier
-//                            .width(50.dp)
-//                            .padding(end = 16.dp)
-//                    ){
-//                        Icon(
-//                            imageVector = Icons.Default.Notifications,
-//                            contentDescription = "Notifications",
-//                            tint = DarkBlue
-//                        )
-//                    }
-//                }
             )
         },
         bottomBar = {

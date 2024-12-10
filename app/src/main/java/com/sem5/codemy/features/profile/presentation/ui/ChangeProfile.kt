@@ -1,4 +1,7 @@
 package com.sem5.codemy.features.profile.presentation.ui
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -42,9 +45,17 @@ import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.sem5.codemy.ui.theme.montserratFontFamily
 import com.sem5.codemy.ui.theme.publicSansFontFamily
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateOf
 
 @Composable
 fun ChangeProfile(navController: NavController){
+    var name by remember { 
+        mutableStateOf("") 
+    }
+
+    // val name = remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
             TopBar(
@@ -84,10 +95,10 @@ fun ChangeProfile(navController: NavController){
 
                     OutlinedTextField(
                         modifier = Modifier.fillMaxWidth(),
-                        value = ""    ,
+                        value = name   ,
                         shape = RoundedCornerShape(5.dp),
                         onValueChange = {
-//                            "" = it
+                            name = it
                         },
                         label = {
                             Text(

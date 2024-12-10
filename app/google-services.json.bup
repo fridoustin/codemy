@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "382293926676",
+    "project_id": "codemy-dc7b5",
+    "storage_bucket": "codemy-dc7b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382293926676:android:1e52134c5a22e324c9d801",
+        "android_client_info": {
+          "package_name": "com.sem5.codemy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTmOY7hp20DLIrMhkRxgYCI4cpizYAZ5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

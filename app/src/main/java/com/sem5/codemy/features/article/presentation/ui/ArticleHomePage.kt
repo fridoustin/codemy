@@ -30,6 +30,7 @@ import com.sem5.codemy.R
 import com.sem5.codemy.ui.theme.LightBlue
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.compose.runtime.getValue
+import com.sem5.codemy.features.article.presentation.components.ArticleRow
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.components.BottomBar
 
@@ -105,46 +106,6 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
                     )
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun ArticleRow(article: Article, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(150.dp)
-            .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White), // Atur warna latar belakang
-        onClick = onClick
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
-            Text(
-                text = stringResource(id = article.articleTitle), // Ambil title dari strings.xml
-                maxLines = 1,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-
-            // Tambahkan Divider untuk memisahkan judul dan deskripsi
-            HorizontalDivider(
-                color = Color.LightGray,
-                thickness = 1.dp,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-
-            Text(
-                text = article.articleDescription,
-                fontSize = 14.sp,
-                maxLines = 3,
-                modifier = Modifier.padding(top = 8.dp)
-            )
         }
     }
 }

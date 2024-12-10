@@ -10,6 +10,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.DividerDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -110,24 +114,36 @@ fun ArticleRow(article: Article, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
-            .background(Color.White)
-            .padding(16.dp),
-        onClick = onClick // Navigasi ke route artikel
+            .height(150.dp)
+            .padding(8.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.White), // Atur warna latar belakang
+        onClick = onClick
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
         ) {
             Text(
                 text = stringResource(id = article.articleTitle), // Ambil title dari strings.xml
+                maxLines = 1,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
+
+            // Tambahkan Divider untuk memisahkan judul dan deskripsi
+            HorizontalDivider(
+                color = Color.LightGray,
+                thickness = 1.dp,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+
             Text(
-                text = article.articleDescription, // Deskripsi artikel
+                text = article.articleDescription,
                 fontSize = 14.sp,
-                modifier = Modifier.padding(bottom = 8.dp)
+                maxLines = 3,
+                modifier = Modifier.padding(top = 8.dp)
             )
         }
     }

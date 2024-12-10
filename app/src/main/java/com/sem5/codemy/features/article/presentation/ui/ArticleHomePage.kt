@@ -33,11 +33,10 @@ import androidx.compose.runtime.*
 import com.sem5.codemy.features.article.presentation.ui.components.ArticleRow
 
 
-// Mendefinisikan data class Article yang benar
 data class Article(
-    val articleTitle: String, // Title yang diambil sebagai string
-    val articleDescription: String, // Deskripsi artikel
-    val route: String? = null // Optional: Route untuk navigasi
+    val articleTitle: String, 
+    val articleDescription: String,
+    val route: String? = null 
 )
 
 @Composable
@@ -57,15 +56,15 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
             .get()
             .addOnSuccessListener { result ->
                 articleList = result.map { document ->
-                    val title = document.getString("title") ?: "" // Ambil title sebagai string
+                    val title = document.getString("title") ?: "" 
                     val description = document.getString("description") ?: ""
-                    val route = document.getString("route")
+                    val articleId = document.id
                     // Membuat objek Article dengan title sebagai string
-                    Article(articleTitle = title, articleDescription = description, route = route)
+                    Article(articleTitle = title, articleDescription = description, route = articleId)
                 }
             }
             .addOnFailureListener { exception ->
-                // Tangani error
+                
             }
     }
 
@@ -116,7 +115,9 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
                     ArticleRow(
                         article = article,
                         onReadMoreClick = {
-                            article.route?.let { navController.navigate(it) }
+                            // Asumsikan Anda menyimpan ID dokumen article di dalam Article.route atau membuat field baru
+                            val articleId = article.route ?: "" 
+                            navController.navigate("articledetail/$articleId")
                         }
                     )
                 }

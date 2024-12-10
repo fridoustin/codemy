@@ -1,7 +1,7 @@
 package com.sem5.codemy.features.profile.presentation.ui
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-
+import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -49,7 +49,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 
 @Composable
-fun ChangeProfile(navController: NavController){
+fun ChangeProfile(navController: NavController, authViewModel: AuthView){
     var name by remember { 
         mutableStateOf("") 
     }
@@ -113,7 +113,9 @@ fun ChangeProfile(navController: NavController){
 
                     ProfileButton(
                         label = {"Change Profile"},
-                        onClick = {navController.navigate("profile")}
+                        onClick = {navController.navigate("profile")
+                    authViewModel.updateNameInFirestore(name)
+                }
                     )
                     Spacer(modifier = Modifier.height(14.dp))
                 }

@@ -17,7 +17,7 @@ import com.sem5.codemy.features.home.presentation.ui.NotificationPage
 import com.sem5.codemy.features.home.presentation.ui.SearchScreen
 import com.sem5.codemy.features.home.presentation.viewmodel.SearchViewModel
 import com.sem5.codemy.features.learn.presentation.ui.WebProgrammingPage
-import com.sem5.codemy.features.screens.challenge.ArticleHomePage
+import com.sem5.codemy.features.article.presentation.ui.ArticleHomePage
 import com.sem5.codemy.features.screens.home.HomePage
 import com.sem5.codemy.features.learn.presentation.ui.LearnHomePage
 import com.sem5.codemy.features.profile.presentation.ui.ChangeProfile

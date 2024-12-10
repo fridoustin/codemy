@@ -28,7 +28,7 @@ import com.sem5.codemy.ui.theme.DarkBlue
 
 
 @Composable
-fun ChallengeHomePage(modifier: Modifier = Modifier, navController: NavController){
+fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 

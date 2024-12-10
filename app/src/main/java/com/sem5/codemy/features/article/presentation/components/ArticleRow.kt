@@ -42,7 +42,6 @@ fun ArticleRow(
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // Divider untuk memisahkan judul dan deskripsi
             HorizontalDivider(
                 color = Color.LightGray,
                 thickness = 1.dp,
@@ -58,7 +57,6 @@ fun ArticleRow(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Row untuk meletakkan tombol di sebelah kanan
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End

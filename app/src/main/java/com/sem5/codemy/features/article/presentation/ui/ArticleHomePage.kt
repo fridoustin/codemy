@@ -11,8 +11,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Divider
-import androidx.compose.material3.DividerDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,37 +19,52 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.sem5.codemy.R
 import com.sem5.codemy.ui.theme.LightBlue
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.compose.runtime.getValue
 import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.components.BottomBar
+import com.google.firebase.firestore.FirebaseFirestore
+import androidx.compose.runtime.*
 
+// Mendefinisikan data class Article yang benar
 data class Article(
-    val articleTitle: Int, // Resource ID for the title
-    val articleDescription: String, // Description of the article
-    val route: String? = null // Navigation route
+    val articleTitle: String, // Title yang diambil sebagai string
+    val articleDescription: String, // Deskripsi artikel
+    val route: String? = null // Optional: Route untuk navigasi
 )
 
 @Composable
 fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController) {
-    // Sample list of articles
-    val articleList = listOf(
-        Article(R.string.crashhtml, "Belajar HTML hanya dalam waktu 5 menit!"),
-        Article(R.string.api, "Mengenal apa itu API dalam dunia pemrograman"),
-        Article(R.string.mitm, "Apa itu MITM? Bagaimana cara menghindarinya?"),
-        Article(R.string.gausahcss, "Kenapa sekarang banyak developer tidak belajar CSS?"),
-        Article(R.string.web3wow, "Kenapa Web3 disebut sebagai masa depan internet?")
-    )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+
+    val db = FirebaseFirestore.getInstance()
+
+    // State untuk menyimpan artikel
+    var articleList by remember { mutableStateOf<List<Article>>(emptyList()) }
+
+    // Mengambil data dari Firestore
+    LaunchedEffect(Unit) {
+        db.collection("artikel")
+            .get()
+            .addOnSuccessListener { result ->
+                articleList = result.map { document ->
+                    val title = document.getString("title") ?: "" // Ambil title sebagai string
+                    val description = document.getString("description") ?: ""
+                    val route = document.getString("route")
+                    // Membuat objek Article dengan title sebagai string
+                    Article(articleTitle = title, articleDescription = description, route = route)
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Tangani error
+            }
+    }
 
     Scaffold(
         topBar = {
@@ -97,11 +110,9 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
                 contentPadding = PaddingValues(16.dp)
             ) {
                 items(articleList) { article ->
-                    ArticleRow (
+                    ArticleRow(
                         article = article,
-                        onClick = {
-                            article.route?.let { navController.navigate(it) }
-                        }
+                        onClick = { article.route?.let { navController.navigate(it) } }
                     )
                 }
             }
@@ -125,7 +136,7 @@ fun ArticleRow(article: Article, onClick: () -> Unit) {
                 .padding(16.dp)
         ) {
             Text(
-                text = stringResource(id = article.articleTitle), // Ambil title dari strings.xml
+                text = article.articleTitle, // Gunakan articleTitle langsung
                 maxLines = 1,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,

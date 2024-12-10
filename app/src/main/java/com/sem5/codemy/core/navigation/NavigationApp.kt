@@ -48,8 +48,8 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
         composable("learnhome") {
             LearnHomePage(modifier, navController)
         }
-        composable("challengehome"){
-            ChallengeHomePage(modifier, navController)
+        composable("articlehome"){
+            ArticleHomePage(modifier, navController)
         }
         composable("profile"){
             Profile(modifier, navController, authViewModel)

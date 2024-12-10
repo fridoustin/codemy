@@ -64,7 +64,7 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
             NotificationPage(navController)
         }
         composable("changeprofile") {
-            ChangeProfile(navController)
+            ChangeProfile(navController, authViewModel)
         }
 //        composable("bottombar"){
 //            BottomBar(modifier, navController, authViewModel)

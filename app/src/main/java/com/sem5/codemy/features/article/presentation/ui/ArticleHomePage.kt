@@ -15,6 +15,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -125,9 +126,9 @@ fun ArticleRow(article: Article, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .height(180.dp)
             .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White), // Atur warna latar belakang
+        colors = CardDefaults.cardColors(containerColor = Color.White),
         onClick = onClick
     ) {
         Column(
@@ -136,14 +137,14 @@ fun ArticleRow(article: Article, onClick: () -> Unit) {
                 .padding(16.dp)
         ) {
             Text(
-                text = article.articleTitle, // Gunakan articleTitle langsung
+                text = article.articleTitle, // Judul artikel
                 maxLines = 1,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // Tambahkan Divider untuk memisahkan judul dan deskripsi
+            // Divider untuk memisahkan judul dan deskripsi
             HorizontalDivider(
                 color = Color.LightGray,
                 thickness = 1.dp,
@@ -151,11 +152,31 @@ fun ArticleRow(article: Article, onClick: () -> Unit) {
             )
 
             Text(
-                text = article.articleDescription,
+                text = article.articleDescription, // Deskripsi singkat artikel
                 fontSize = 14.sp,
                 maxLines = 3,
                 modifier = Modifier.padding(top = 8.dp)
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Row untuk meletakkan tombol di sebelah kanan
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+                // Tombol "Read More"
+                TextButton(
+                    onClick = onClick,
+                    modifier = Modifier.padding(4.dp) // Menambah padding untuk memberikan ruang
+                ) {
+                    Text(
+                        text = "Read More",
+                        fontSize = 10.sp,
+                        color = Color.Blue // Pastikan warna tombol jelas
+                    )
+                }
+            }
         }
     }
 }

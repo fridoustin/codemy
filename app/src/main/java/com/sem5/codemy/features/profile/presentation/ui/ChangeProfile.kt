@@ -2,7 +2,6 @@ package com.sem5.codemy.features.profile.presentation.ui
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

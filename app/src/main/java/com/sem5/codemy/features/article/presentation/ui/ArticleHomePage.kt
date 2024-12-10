@@ -2,11 +2,16 @@ package com.sem5.codemy.features.article.presentation.ui
 
 import com.sem5.codemy.ui.theme.components.TopBar
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,6 +24,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sem5.codemy.R
 import com.sem5.codemy.ui.theme.LightBlue
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.compose.runtime.getValue
+import com.sem5.codemy.ui.theme.DarkBlue
+import com.sem5.codemy.ui.theme.components.BottomBar
 
 data class Article(
     val articleTitle: Int, // Resource ID for the title
@@ -37,12 +46,38 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
         Article(R.string.web3wow, "Kenapa Web3 disebut sebagai masa depan internet?")
     )
 
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
     Scaffold(
-        containerColor = LightBlue,
         topBar = {
             TopBar(
-                title = "Artikel Terbaru",
-                actions = { /* Tambahkan action di sini jika diperlukan */ }
+                title = "Artikel, Yuk Sinau !",
+                actions = {
+                    IconButton(
+                        onClick = { navController.navigate("notification") },
+                        modifier = Modifier
+                            .width(50.dp)
+                            .padding(end = 16.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Notifications,
+                            contentDescription = "Notifications",
+                            tint = DarkBlue
+                        )
+                    }
+                }
+            )
+        },
+        bottomBar = {
+            BottomBar (
+                currentScreen = currentRoute ?: "",
+                navController = navController,
+                onItemSelected = { selectedScreen ->
+                    if (selectedScreen != currentRoute) {
+                        navController.navigate(selectedScreen)
+                    }
+                }
             )
         }
     ) { innerPadding ->
@@ -58,7 +93,7 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
                 contentPadding = PaddingValues(16.dp)
             ) {
                 items(articleList) { article ->
-                    ArticleRow(
+                    ArticleRow (
                         article = article,
                         onClick = {
                             article.route?.let { navController.navigate(it) }

@@ -17,3 +17,14 @@ data class LessonCategories(
         return lessonTitleString.contains(query, ignoreCase = true)
         }
     }
+
+    // data class Article(
+    //     val articleTitle: Int,
+    //     val articleContent:
+    //     val route : String? = null
+    // ) {
+    //     fun doesMatchSearchQuery(query: String, context: Context): Boolean {
+    //         val lessonTitleString = context.getString(lessonTitle)
+    //         return lessonTitleString.contains(query, ignoreCase = true)
+    //         }
+    //     }

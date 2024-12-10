@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Article
 import androidx.compose.material.icons.filled.Flag
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.MoreHoriz
@@ -50,7 +51,7 @@ fun BottomBar(
         val items = listOf(
             BottomBarItem("Home", Icons.Default.Home, "home"),
             BottomBarItem("Learn", Icons.Default.School, "learnhome"),
-            BottomBarItem("Article", Icons.Default.Flag, "articlehome"),
+            BottomBarItem("Article", Icons.Default.Article, "articlehome"),
             BottomBarItem("Profile", Icons.Default.Person, "profile")
         )
 

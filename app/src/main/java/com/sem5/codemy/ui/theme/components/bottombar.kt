@@ -50,7 +50,7 @@ fun BottomBar(
         val items = listOf(
             BottomBarItem("Home", Icons.Default.Home, "home"),
             BottomBarItem("Learn", Icons.Default.School, "learnhome"),
-            BottomBarItem("Challenge", Icons.Default.Flag, "challengehome"),
+            BottomBarItem("Article", Icons.Default.Flag, "articlehome"),
             BottomBarItem("Profile", Icons.Default.Person, "profile")
         )
 

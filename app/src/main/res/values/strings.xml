@@ -28,4 +28,13 @@
     <string name="sqli">Belajar SQL</string>"
     <string name="web1">Membuat Web Sederhana</string>
 
+    <!-- Artikel -->
+
+    <string name="crashhtml">HTML Dalam 5 Menit</string>
+    <string name="api">API ?</string>
+    <string name="mitm">MITM</string>
+    <string name="gausahcss">Zaman Sekarang Ga Usah Belajar CSS</string>
+    <string name="web3wow">Web3 Adalah Masa Depan</string>
+
+
 </resources>

@@ -35,7 +35,7 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
     Scaffold(
         topBar = {
             TopBar(
-                title = "Yuk, selesaikan tantangannya",
+                title = "Artikel, Yuk Sinau !",
                 actions = {
                     IconButton(
                         onClick = {navController.navigate("notification")},

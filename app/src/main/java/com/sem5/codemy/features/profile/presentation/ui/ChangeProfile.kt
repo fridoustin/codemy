@@ -141,8 +141,12 @@ fun ChangeProfile(navController: NavController, authViewModel: AuthView) {
                         ProfileButton(
                             label = { "Change Profile" },
                             onClick = {
-                                authViewModel.updateNameInFirestore(userName.value ?: "")
-                                authViewModel.updatePhotoInFirestore(profilePhotoUrl.value ?: "")
+                                authViewModel.updateNameInFirestore(userName.value ?: "User")
+                                profilePhotoUrl.value?.let {
+                                    authViewModel.updatePhotoInFirestore(
+                                        it
+                                    )
+                                }
                                 navController.navigate("profile")
                             }
                         )

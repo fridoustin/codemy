@@ -217,6 +217,29 @@ class AuthView: ViewModel() {
         }
     }
 
+    fun loadUserNameFromFirebase() {
+        val firebaseUser = auth.currentUser
+        if (firebaseUser != null) {
+            val userId = firebaseUser.uid
+            firestore.collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val name = document.getString("name")
+                        _userName.value = name
+                    } else {
+                        _userName.value = "User"
+                    }
+                }
+                .addOnFailureListener {
+                    _userName.value = "User"
+                }
+        } else {
+            _userName.value = "User"
+        }
+    }
+
 //    fun handleGoogleSignIn(context: Context, navController: NavController){
 //        viewModelScope.launch {
 //            googleSignIn(context).collect{ result ->

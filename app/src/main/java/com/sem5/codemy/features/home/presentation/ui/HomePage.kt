@@ -70,6 +70,9 @@ fun HomePage(
     LaunchedEffect(authState.value) {
         when(authState.value){
             is AuthState.Unauthenticated -> navController.navigate("signin")
+            is AuthState.Authenticated -> {
+                authViewModel.loadUserNameFromFirebase()
+            }
             else -> Unit
         }
     }

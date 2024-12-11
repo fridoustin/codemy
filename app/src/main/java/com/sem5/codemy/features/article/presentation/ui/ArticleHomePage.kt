@@ -1,5 +1,6 @@
 package com.sem5.codemy.features.article.presentation.ui
 
+import android.util.Log
 import com.sem5.codemy.ui.theme.components.TopBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.livedata.observeAsState
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +32,7 @@ import com.sem5.codemy.ui.theme.DarkBlue
 import com.sem5.codemy.ui.theme.components.BottomBar
 import com.google.firebase.firestore.FirebaseFirestore
 import androidx.compose.runtime.*
+import com.sem5.codemy.features.article.data.remote.getArticles
 import com.sem5.codemy.features.article.presentation.ui.components.ArticleRow
 
 
@@ -45,35 +48,29 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-
-    val db = FirebaseFirestore.getInstance()
+    val isLoading = remember { mutableStateOf(true) }
 
     // State untuk menyimpan artikel
     var articleList by remember { mutableStateOf<List<Article>>(emptyList()) }
 
     // Mengambil data dari Firestore
     LaunchedEffect(Unit) {
-        db.collection("artikel")
-            .get()
-            .addOnSuccessListener { result ->
-                articleList = result.map { document ->
-                    val title = document.getString("title") ?: "" 
-                    val description = document.getString("description") ?: ""
-                    val articleId = document.id
-                    val category = document.getString("category") ?: "Umum"
-
-                    // Membuat objek Article dengan title sebagai string
-                    Article(
-                        articleTitle = title, 
-                        articleDescription = description, 
-                        route = articleId,
-                        category = category
-                            )
-                }
+        try {
+            isLoading.value = true
+            val articles = getArticles()
+            articleList = articles.map { data ->
+                Article(
+                    articleTitle = data["title"] as? String ?: "",
+                    articleDescription = data["description"] as? String ?: "",
+                    route = data["id"] as? String,
+                    category = data["category"] as? String ?: "Umum"
+                )
             }
-            .addOnFailureListener { exception ->
-                
-            }
+        } catch (e: Exception) {
+            Log.e("ArticleHomePage", "Error fetching articles: ", e)
+        } finally {
+            isLoading.value = false
+        }
     }
 
     Scaffold(
@@ -108,87 +105,39 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color(0xFFEFF4FA))
-                .padding(innerPadding)
-        ) {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(16.dp),
-                contentPadding = PaddingValues(16.dp)
+        if (isLoading.value) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(0xFFEFF4FA)),
+                contentAlignment = Alignment.Center
             ) {
-                items(articleList) { article ->
-                    ArticleRow(
-                        article = article,
-                        onReadMoreClick = {
-                            // Asumsikan Anda menyimpan ID dokumen article di dalam Article.route atau membuat field baru
-                            val articleId = article.route ?: "" 
-                            navController.navigate("articledetail/$articleId")
-                        }
-                    )
+                CircularProgressIndicator(color = DarkBlue)
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color(0xFFEFF4FA))
+                    .padding(innerPadding)
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    items(articleList) { article ->
+                        ArticleRow(
+                            article = article,
+                            onReadMoreClick = {
+                                // Asumsikan Anda menyimpan ID dokumen article di dalam Article.route atau membuat field baru
+                                val articleId = article.route ?: ""
+                                navController.navigate("articledetail/$articleId")
+                            }
+                        )
+                    }
                 }
             }
         }
     }
 }
-
-// fun ArticleRow(article: Article, onClick: () -> Unit) {
-//     Card(
-//         modifier = Modifier
-//             .fillMaxWidth()
-//             .height(180.dp)
-//             .padding(8.dp),
-//         colors = CardDefaults.cardColors(containerColor = Color.White),
-//         onClick = onClick
-//     ) {
-//         Column(
-//             modifier = Modifier
-//                 .fillMaxSize()
-//                 .padding(16.dp)
-//         ) {
-//             Text(
-//                 text = article.articleTitle, // Judul artikel
-//                 maxLines = 1,
-//                 fontSize = 18.sp,
-//                 fontWeight = FontWeight.Bold,
-//                 modifier = Modifier.padding(bottom = 8.dp)
-//             )
-
-//             // Divider untuk memisahkan judul dan deskripsi
-//             HorizontalDivider(
-//                 color = Color.LightGray,
-//                 thickness = 1.dp,
-//                 modifier = Modifier.padding(vertical = 8.dp)
-//             )
-
-//             Text(
-//                 text = article.articleDescription, // Deskripsi singkat artikel
-//                 fontSize = 14.sp,
-//                 maxLines = 3,
-//                 modifier = Modifier.padding(top = 8.dp)
-//             )
-
-//             Spacer(modifier = Modifier.height(8.dp))
-
-//             // Row untuk meletakkan tombol di sebelah kanan
-//             Row(
-//                 modifier = Modifier.fillMaxWidth(),
-//                 horizontalArrangement = Arrangement.End
-//             ) {
-//                 // Tombol "Read More"
-//                 TextButton(
-//                     onClick = onClick,
-//                     modifier = Modifier.padding(4.dp) // Menambah padding untuk memberikan ruang
-//                 ) {
-//                     Text(
-//                         text = "Read More",
-//                         fontSize = 10.sp,
-//                         color = Color.Blue // Pastikan warna tombol jelas
-//                     )
-//                 }
-//             }
-//         }
-//     }
-// }

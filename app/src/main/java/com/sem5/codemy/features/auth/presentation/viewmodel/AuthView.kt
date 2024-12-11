@@ -33,21 +33,7 @@ class AuthView: ViewModel() {
         checkAuthState()
     }
 
-//    private fun storeUserInFirestore(userData: User){
-//        userData.id?.let {
-//            firestore.collection("user")
-//                .document(it)
-//                .set(it)
-//                .addOnSuccessListener{
-//                    _authState.value = AuthState.Authenticated
-//                }
-//                .addOnFailureListener{ exception ->
-//                    _authState.value = AuthState.Error(exception.message ?: "Failed to Store Data")
-//                }
-//        }
-//
-//    }
-
+    //mengecek status autentikasi
     fun checkAuthState(){
         val firebaseUser = auth.currentUser
         if(firebaseUser == null){
@@ -60,28 +46,19 @@ class AuthView: ViewModel() {
         }
     }
 
+    //fungsi untuk login menggunakan firebase
     fun login(data: User){
-
         if(data.email.isEmpty() || data.password.isEmpty()){
             _authState.value = AuthState.Error("Email or Password can't be empty")
             return
         }
-
         _authState.value = AuthState.Loading
-
         viewModelScope.launch {
             try{
                 auth.signInWithEmailAndPassword(data.email, data.password)
                     .addOnCompleteListener{task->
                         if(task.isSuccessful){
                             checkAuthState()
-//                            val firebaseUser = auth.currentUser
-//                            firebaseUser?.let{
-//                                _authState.value = AuthState.Authenticated
-//                                _userName.value = it.displayName
-//                                _userEmail.value = it.email
-//                                _userPhoto.value = it.photoUrl?.toString()
-//                            }
                         }else{
                             _authState.value =
                                 AuthState.Error(task.exception?.message ?: "Something went wrong")
@@ -93,6 +70,7 @@ class AuthView: ViewModel() {
         }
     }
 
+    //fungsi register menggunakan firebase
     fun signUp(data: User){
         if(data.email.isEmpty() || data.password.isEmpty()){
             _authState.value = AuthState.Error("Name, Email or Password can't be empty")
@@ -138,6 +116,7 @@ class AuthView: ViewModel() {
             }
     }
 
+    //fungsi untuk login menggunakan google
     fun signinWithGoogle(account: GoogleSignInAccount){
         _authState.value = AuthState.Loading
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
@@ -168,6 +147,7 @@ class AuthView: ViewModel() {
             }
     }
 
+    //fungsi untuk logout
     fun signOut(){
         auth.signOut()
         _authState.value = AuthState.Unauthenticated
@@ -176,7 +156,7 @@ class AuthView: ViewModel() {
         _userPhoto.value = null
     }
 
-
+    //fungsi untuk mengupdate nama di firestore
     fun updateNameInFirestore(newName: String) {
         val firebaseUser = auth.currentUser
         if (firebaseUser != null) {
@@ -197,6 +177,7 @@ class AuthView: ViewModel() {
         }
     }
 
+    //fungsi untuk mengupdate foto profile di firestore
     fun updatePhotoInFirestore(newName: String) {
         val firebaseUser = auth.currentUser
         if (firebaseUser != null) {
@@ -217,6 +198,7 @@ class AuthView: ViewModel() {
         }
     }
 
+    //fungsi untuk mendapatkan username dari firestore
     fun loadUserNameFromFirebase() {
         val firebaseUser = auth.currentUser
         if (firebaseUser != null) {
@@ -239,66 +221,6 @@ class AuthView: ViewModel() {
             _userName.value = "User"
         }
     }
-
-//    fun handleGoogleSignIn(context: Context, navController: NavController){
-//        viewModelScope.launch {
-//            googleSignIn(context).collect{ result ->
-//                result.fold(
-//                    onSuccess = { authResult ->
-//                        val currentUser = authResult.user
-//                        if (currentUser != null){
-//                            user.value = User(currentUser.uid, currentUser)
-//                        }
-//
-//                    } onFailure
-//                )
-//            }
-//        }
-//    }
-
-//    private suspend fun googleSignIn(context: Context): Flow<Result<AuthResult>> {
-//        return callbackFlow {
-//            try {
-//                val credentialManager: CredentialManager = CredentialManager.create(context)
-//
-//                val ranNonce: String = UUID.randomUUID().toString()
-//                val bytes: ByteArray = ranNonce.toByteArray()
-//                val md: MessageDigest = MessageDigest.getInstance("SHA-256")
-//                val digest: ByteArray = md.digest(bytes)
-//                val hashedNonce: String = digest.fold("") {str, it -> str + "%02x".format(it)}
-//
-//                val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
-//                    .setFilterByAuthorizedAccounts(false)
-//                    .setServerClientId(context.getString(R.string.web_client_id))
-//                    .setNonce(hashedNonce)
-//                    .setAutoSelectEnabled(true)
-//                    .build()
-//
-//                val request: GetCredentialRequest = GetCredentialRequest.Builder()
-//                    .addCredentialOption(googleIdOption)
-//                    .build()
-//
-//                val result = credentialManager.getCredential(context, request)
-//                val credential = result.credential
-//
-//                if(credential is CustomCredential && credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL){
-//                    val googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.data)
-//                    val authCredential = GoogleAuthProvider.getCredential(googleIdTokenCredential.idToken, null)
-//                    val authResult = auth.signInWithCredential(authCredential).await()
-//                    trySend(Result.success(authResult))
-//                } else {
-//                    throw RuntimeException("invalid credential")
-//                }
-//            } catch (e: GetCredentialCancellationException){
-//                trySend(Result.failure(Exception("Sign In Error")))
-//            } catch (e: Exception){
-//                trySend(Result.failure(e))
-//            }
-//
-//            awaitClose {  }
-//        }
-//    }
-
 }
 
 sealed class AuthState{

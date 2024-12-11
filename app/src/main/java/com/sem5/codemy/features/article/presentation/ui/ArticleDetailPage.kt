@@ -2,6 +2,8 @@ package com.sem5.codemy.features.article.presentation.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -38,7 +40,7 @@ fun ArticleDetailPage(articleId: String, navController: NavController) {
                 }
             }
             .addOnFailureListener { exception ->
-
+                // Tangani error jika diperlukan
             }
     }
 
@@ -70,26 +72,52 @@ fun ArticleDetailPage(articleId: String, navController: NavController) {
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            Text(
-                text = articleTitle,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+            // Card untuk Judul dan Deskripsi
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = articleTitle,
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(bottom = 8.dp)
+                    )
 
-            Text(
-                text = articleDescription,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+                    Text(
+                        text = articleDescription,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
 
-            // Tampilkan konten lengkap artikel
-            Text(
-                text = articleContent,
-                fontSize = 14.sp,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
+            // Card untuk Konten Lengkap
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = articleContent,
+                        fontSize = 14.sp
+                    )
+                }
+            }
         }
     }
 }

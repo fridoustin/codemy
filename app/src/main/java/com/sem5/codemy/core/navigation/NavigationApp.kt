@@ -25,7 +25,6 @@ import com.sem5.codemy.features.screens.home.HomePage
 import com.sem5.codemy.features.learn.presentation.ui.LearnHomePage
 import com.sem5.codemy.features.profile.presentation.ui.ChangeProfile
 import com.sem5.codemy.features.profile.presentation.ui.Profile
-import com.sem5.codemy.features.profile.presentation.viewmodel.ProfileViewModel
 
 @Composable
 fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
@@ -76,10 +75,6 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
         composable("changeprofile") {
             ChangeProfile(navController, authViewModel)
         }
-//        composable("bottombar"){
-//            BottomBar(modifier, navController, authViewModel)
-//        }
-
     })
 }
 

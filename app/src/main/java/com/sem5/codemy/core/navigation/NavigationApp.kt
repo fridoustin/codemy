@@ -6,9 +6,12 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.sem5.codemy.features.article.presentation.ui.ArticleDetailPage
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthState
 import com.sem5.codemy.features.auth.presentation.viewmodel.AuthView
 import com.sem5.codemy.features.auth.presentation.ui.SignIn
@@ -50,6 +53,13 @@ fun NavigationApp(modifier: Modifier = Modifier, authViewModel: AuthView) {
         }
         composable("articlehome"){
             ArticleHomePage(modifier, navController)
+        }
+        composable(
+            route = "articledetail/{articleId}",
+            arguments = listOf(navArgument("articleId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val articleId = backStackEntry.arguments?.getString("articleId") ?: ""
+            ArticleDetailPage(articleId = articleId, navController = navController)
         }
         composable("profile"){
             Profile(modifier, navController, authViewModel)

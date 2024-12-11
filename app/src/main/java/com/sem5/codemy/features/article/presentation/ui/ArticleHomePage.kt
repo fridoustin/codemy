@@ -36,6 +36,7 @@ import com.sem5.codemy.features.article.presentation.ui.components.ArticleRow
 data class Article(
     val articleTitle: String, 
     val articleDescription: String,
+    val category: String, 
     val route: String? = null 
 )
 
@@ -59,8 +60,15 @@ fun ArticleHomePage(modifier: Modifier = Modifier, navController: NavController)
                     val title = document.getString("title") ?: "" 
                     val description = document.getString("description") ?: ""
                     val articleId = document.id
+                    val category = document.getString("category") ?: "Umum"
+
                     // Membuat objek Article dengan title sebagai string
-                    Article(articleTitle = title, articleDescription = description, route = articleId)
+                    Article(
+                        articleTitle = title, 
+                        articleDescription = description, 
+                        route = articleId,
+                        category = category
+                            )
                 }
             }
             .addOnFailureListener { exception ->

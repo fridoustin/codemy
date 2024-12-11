@@ -34,13 +34,25 @@ fun ArticleRow(
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-            Text(
-                text = article.articleTitle,
-                maxLines = 1,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = article.articleTitle, 
+                    maxLines = 1,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                
+                // Kategori di sebelah kanan dengan teks lebih kecil
+                Text(
+                    text = article.category,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Normal,
+                    color = Color.Gray
+                )
+            }
 
             HorizontalDivider(
                 color = Color.LightGray,

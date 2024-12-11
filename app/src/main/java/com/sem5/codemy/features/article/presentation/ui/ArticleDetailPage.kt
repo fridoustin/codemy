@@ -1,6 +1,7 @@
 package com.sem5.codemy.features.article.presentation.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -13,21 +14,23 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.sem5.codemy.ui.theme.components.TopBar
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sem5.codemy.R // Pastikan import R
 
 @Composable
 fun ArticleDetailPage(articleId: String, navController: NavController) {
-    // State untuk menyimpan detail artikel
     var articleTitle by remember { mutableStateOf("") }
     var articleDescription by remember { mutableStateOf("") }
     var articleContent by remember { mutableStateOf("") }
+    var articleCategory by remember { mutableStateOf("") }
 
-    // Ambil data dari Firestore berdasarkan articleId
     LaunchedEffect(articleId) {
         val db = FirebaseFirestore.getInstance()
         val docRef = db.collection("artikel").document(articleId)
@@ -37,10 +40,10 @@ fun ArticleDetailPage(articleId: String, navController: NavController) {
                     articleTitle = document.getString("title") ?: ""
                     articleDescription = document.getString("description") ?: ""
                     articleContent = document.getString("content") ?: ""
+                    articleCategory = document.getString("category") ?: "Umum"
                 }
             }
             .addOnFailureListener { exception ->
-                // Tangani error jika diperlukan
             }
     }
 
@@ -72,6 +75,19 @@ fun ArticleDetailPage(articleId: String, navController: NavController) {
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
+            // Tampilkan Gambar sesuai Kategori
+            val categoryImage = getCategoryImagePainter(articleCategory)
+            categoryImage?.let {
+                Image(
+                    painter = it,
+                    contentDescription = articleCategory,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .padding(bottom = 16.dp)
+                )
+            }
+
             // Card untuk Judul dan Deskripsi
             Card(
                 modifier = Modifier
@@ -119,5 +135,17 @@ fun ArticleDetailPage(articleId: String, navController: NavController) {
                 }
             }
         }
+    }
+}
+
+// Fungsi untuk memetakan kategori ke gambar
+@Composable
+fun getCategoryImagePainter(category: String): Painter? {
+    return when(category.lowercase()) {
+        "programming" -> painterResource(R.drawable.c)
+        "webdev" -> painterResource(R.drawable.web) 
+        "security" -> painterResource(R.drawable.cyberimg) 
+        "game" -> painterResource(R.drawable.gameimg) 
+        else -> painterResource(R.drawable.studyicon) 
     }
 }

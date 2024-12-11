@@ -32,7 +32,7 @@ import com.sem5.codemy.ui.theme.publicSansFontFamily
 @Composable
 fun TopBar(
     title: String,
-    actions: @Composable RowScope.() -> Unit = {}
+    actions: (@Composable RowScope.() -> Unit)? = null
 //    navController: NavController,
 
 ){
@@ -50,7 +50,7 @@ fun TopBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = BlueNormal
         ),
-        actions = actions
+        actions = actions ?: {}
     )
 }
 

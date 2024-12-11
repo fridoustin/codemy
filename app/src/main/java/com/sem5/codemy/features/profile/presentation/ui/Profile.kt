@@ -93,7 +93,7 @@ fun Profile(
                 title = "Profile",
                 actions = {
                     IconButton(
-                        onClick = { navController.navigate("notification") },
+                        onClick = { },
                         modifier = Modifier
                             .width(50.dp)
                             .padding(end = 16.dp)

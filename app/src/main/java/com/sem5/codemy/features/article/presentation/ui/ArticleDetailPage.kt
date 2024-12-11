@@ -55,7 +55,7 @@ fun ArticleDetailPage(articleId: String, navController: NavController) {
                 title = "Yuk, Literasi !",
                 actions = {
                     IconButton(
-                        onClick = { navController.popBackStack() },
+                        onClick = { },
                         modifier = Modifier
                             .width(50.dp)
                             .padding(end = 16.dp)

@@ -197,6 +197,26 @@ class AuthView: ViewModel() {
         }
     }
 
+    fun updatePhotoInFirestore(newName: String) {
+        val firebaseUser = auth.currentUser
+        if (firebaseUser != null) {
+            val userId = firebaseUser.uid
+            val userRef = firestore.collection("users").document(userId)
+    
+            // Update field "name" di Firestore
+            userRef.update("photo", newName)
+                .addOnSuccessListener {
+                    _authState.value = AuthState.Authenticated
+                    _userName.value = newName // Update state lokal
+                }
+                .addOnFailureListener { exception ->
+                    _authState.value = AuthState.Error(exception.message ?: "Failed to update name")
+                }
+        } else {
+            _authState.value = AuthState.Unauthenticated
+        }
+    }
+
 //    fun handleGoogleSignIn(context: Context, navController: NavController){
 //        viewModelScope.launch {
 //            googleSignIn(context).collect{ result ->

@@ -222,26 +222,6 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
                     account?.let{authViewModel.signinWithGoogle(it)}
                 }
 
-//                Button(
-//                    modifier = Modifier.fillMaxWidth(),
-//                    colors = ButtonDefaults.buttonColors(Color.White),
-//                    border = BorderStroke(1.dp, Color.Black),
-//                    shape = RoundedCornerShape(5.dp),
-//                    onClick = {
-//                        val googleSignInClient = getGoogleSignInClient(context)
-//                        val signInIntent = googleSignInClient.signInIntent
-//                    (context as Activity).startActivityForResult(signInIntent, RC_SIGN_IN)
-//                    }
-//                ) {
-//                    Text(
-//                        text = "Sign In With Google",
-//                        fontSize = 12.sp,
-//                        fontFamily = publicSansFontFamily,
-//                        fontWeight = FontWeight.Medium,
-//                        color = Color.Black
-//                    )
-//                }
-
                 Spacer(modifier = Modifier.height(14.dp))
 
                 Row(
@@ -270,25 +250,5 @@ fun SignIn(modifier: Modifier = Modifier, navController: NavController, authView
                 }
             }
         }
-
-//        fun getGoogleSignInClient(context: Context): GoogleSignInClient {
-//            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(context.getString(R.string.web_client_id))
-//                .requestEmail()
-//                .build()
-//            return GoogleSignIn.getClient(context, gso)
-//        }
-//
-//        fun handleSignInResult(data: Intent?, authViewModel: AuthView) {
-//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            try {
-//                val account = task.getResult(ApiException::class.java)
-//                account?.let {
-//                    authViewModel.signinWithGoogle(it)
-//                }
-//            } catch (e: ApiException) {
-//                Log.w("SignInScreen", "Google sign-in failed", e)
-//            }
-//        }
     }
 }

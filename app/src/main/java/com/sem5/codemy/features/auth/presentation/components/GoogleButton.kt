@@ -4,16 +4,25 @@ import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,13 +68,25 @@ fun GoogleSignInButton(onSignInResult: (GoogleSignInAccount?) -> Unit){
             signInLauncher.launch(googleSignInClient.signInIntent)
         }
     ){
-        Text(
-            text = "SignIn With Google",
-            fontSize = 12.sp,
-            fontFamily = publicSansFontFamily,
-            fontWeight = FontWeight.Medium,
-            color = Color.Black
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ){
+            Image(
+                painter = painterResource(id = R.drawable.google),
+                contentDescription = "google",
+                modifier = Modifier.size(28.dp,28.dp),
+                contentScale = ContentScale.Fit
+            )
+            Text(
+                text = "SignIn With Google",
+                fontSize = 12.sp,
+                fontFamily = publicSansFontFamily,
+                fontWeight = FontWeight.Medium,
+                color = Color.Black
+            )
+        }
+
     }
 }
 
